@@ -8,6 +8,13 @@ class UsersController < ApplicationController
         render json: { error: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
+    # get '/me'
+    def show
+        render json: User.find(session[:user_id])
+    rescue ActiveRecord::RecordNotfound
+        render json: { error: ['Not authorized'] }, status: :unauthorized
+    end
+
     private
 
     def user_params

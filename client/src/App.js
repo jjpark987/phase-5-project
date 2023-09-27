@@ -1,11 +1,16 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from './reducers/authSlice';
+import { login, profileCreated } from './reducers/authSlice';
+import { updateProfile } from './reducers/profileSlice';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Auth from './components/Auth';
+import Profile from './components/profile/Profile';
+import AddProfile from './components/profile/AddProfile';
+import PageNotFound from './components/PageNotFound';
+import LoginPrompt from './components/LoginPrompt';
 
 function App() {
     const dispatch = useDispatch();
@@ -16,6 +21,10 @@ function App() {
             if (res.ok) {
                 res.json().then(userData => {
                     dispatch(login(userData));
+                    if (userData.profile) {
+                        dispatch(profileCreated());
+                        dispatch(updateProfile(userData.profile));
+                    }
                 });
             }
         })
@@ -32,7 +41,18 @@ function App() {
                 <Route path='/login' element={
                     <Auth />
                 } />
-                <Route path='*' element={<h1>Path not found</h1>} />
+                <Route path='/profile' element={
+                    <Profile />
+                } />
+                <Route path='/profile/add' element={
+                    <AddProfile />
+                } />
+                <Route path='/login-prompt' element={
+                    <LoginPrompt />
+                } />
+                <Route path='*' element={
+                    <PageNotFound />
+                } />
             </Routes>
         </div>
     );

@@ -220,7 +220,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   byebug
-  dotenv-rails (~> 2.8)
+  dotenv-rails
   faker (~> 3.2)
   listen (~> 3.3)
   pg (~> 1.1)

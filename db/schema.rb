@@ -35,15 +35,16 @@ ActiveRecord::Schema.define(version: 2023_10_05_185911) do
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.string "image"
-    t.string "cuisine"
+    t.string "cuisines", default: [], array: true
+    t.string "types", default: [], array: true
     t.boolean "is_vegetarian"
     t.boolean "is_vegan"
     t.boolean "is_gluten_free"
     t.boolean "is_dairy_free"
-    t.float "calories"
-    t.float "proteins"
-    t.float "carbs"
-    t.float "fats"
+    t.integer "calories"
+    t.integer "proteins"
+    t.integer "carbs"
+    t.integer "fats"
     t.integer "servings"
     t.string "ingredients", default: [], array: true
     t.string "instructions", default: [], array: true

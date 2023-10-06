@@ -30,8 +30,6 @@ group :development, :test do
     gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
     # Creates randomized values for seed data
     gem 'faker', '~> 3.2'
-    # Automatically loads environment variables in .env files
-    gem 'dotenv-rails', '~> 2.8', require: 'dotenv/rails-now'
 end
 
 group :development do
@@ -53,6 +51,9 @@ group :test do
 end
 
 gem "active_model_serializers", "~> 0.10.12"
+
+# Automatically loads environment variables in .env files
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 # Makes HTTP requests to APIs
 gem 'rest-client', '~> 2.0'

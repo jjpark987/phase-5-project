@@ -4,9 +4,12 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create'
     get '/me', to: 'users#show'
     delete '/logout', to: 'sessions#destroy'
-    
-    resources :profiles, only: [:create]
-
+    # Profile
+    resources :profiles, only: [:create, :show, :update]
+    # Recipe
+    resources :recipes, only: [:index]
+    # Meal
+    resources :meals
     # Routing logic: fallback requests for React Router.
     # Leave this here to help deploy your app later!
     get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

@@ -8,10 +8,11 @@ function NavBar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth);
+    const profile = useSelector(state => state.profile);
 
     function handleProfileClick() {
         if (user.id) {
-            user.profileCreated ? navigate('/profile') : navigate('/profile/add');
+            profile.id ? navigate('/profile') : navigate('/profile/add');
         } else {
             navigate('/login-prompt');
         }

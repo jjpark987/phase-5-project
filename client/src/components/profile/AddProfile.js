@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { profileCreated } from "../../reducers/authSlice";
 import { updateProfile } from "../../reducers/profileSlice";
 
 function AddProfile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user = useSelector(state => state.auth)
-    const profile = useSelector(state => state.profile);
+    const user = useSelector(state => state.auth);
 
     const [addProfile, setAddProfile] = useState({
-        sex: profile.sex,
-        age: profile.age,
-        weight: profile.weight,
-        vegetarian: profile.vegetarian,
-        vegan: profile.vegan,
-        glutenFree: profile.glutenFree,
-        dairyFree: profile.dairyFree,
-        healthGoal: profile.healthGoal
+        sex: 'male',
+        age: '',
+        heightFeet: '',
+        heightInches: '',
+        weight: '',
+        activityLevel: 'sedentary',
+        healthGoal: 'maintain',
+        vegetarian: false,
+        vegan: false,
+        glutenFree: false,
+        dairyFree: false
     });
     const [errors, setErrors] = useState([]);
 
@@ -35,12 +36,14 @@ function AddProfile() {
                 user_id: user.id,
                 sex: addProfile.sex,
                 age: addProfile.age,
+                height: parseInt(addProfile.heightFeet) * 12 + parseInt(addProfile.heightInches),
                 weight: addProfile.weight,
+                activity_level: addProfile.activityLevel, 
+                health_goal: addProfile.healthGoal,
                 vegetarian: addProfile.vegetarian,
                 vegan: addProfile.vegan,
                 gluten_free: addProfile.glutenFree,
                 dairy_free: addProfile.dairyFree,
-                health_goal: addProfile.healthGoal
             }
         };
 
@@ -54,7 +57,6 @@ function AddProfile() {
 
             if (res.ok) {
                 responseBody.then(profileData => {
-                    dispatch(profileCreated());
                     dispatch(updateProfile(profileData));
                     navigate('/profile');
                 });
@@ -86,13 +88,50 @@ function AddProfile() {
                     value={addProfile.age}
                     onChange={updateAddProfile}
                 />
-                <label htmlFor='add-weight'>Weight:</label>
+                <label htmlFor='add-height-feet'>Height (ft, in):</label>
+                <input 
+                    id='add-height-feet' 
+                    name='heightFeet'
+                    value={addProfile.heightFeet}
+                    onChange={updateAddProfile}
+                />
+                <input 
+                    id='add-height-inches' 
+                    name='heightInches'
+                    value={addProfile.heightInches}
+                    onChange={updateAddProfile}
+                />
+                <label htmlFor='add-weight'>Weight (lbs):</label>
                 <input 
                     id='add-weight' 
                     name='weight'
                     value={addProfile.weight}
                     onChange={updateAddProfile}
                 />
+                <label htmlFor='add-activity-level'>Activity level:</label>
+                <select 
+                    id='add-activity-level' 
+                    name='activityLevel'
+                    value={addProfile.activityLevel}
+                    onChange={updateAddProfile}
+                >
+                    <option value='sedentary'>Little to no exercise</option>
+                    <option value='light'>Light exercise 1-3 days/week</option>
+                    <option value='moderate'>Moderate exercise 3-5 days/week</option>
+                    <option value='high'>Hard exercise 6-7 days/week</option>
+                    <option value='vigorous'>Very hard exercise everyday with physical job</option>
+                </select>
+                <label htmlFor='add-health-goal'>Health goal:</label>
+                <select 
+                    id='add-health-goal' 
+                    name='healthGoal'
+                    value={addProfile.healthGoal}
+                    onChange={updateAddProfile}
+                >
+                    <option value='lose'>I want to lose weight</option>
+                    <option value='maintain'>I want to maintain my weight</option>
+                    <option value='gain'>I want to gain weight</option>
+                </select>
                 <label htmlFor='add-vegetarian'>Vegetarian:</label>
                 <select 
                     id='add-vegetarian' 
@@ -113,7 +152,7 @@ function AddProfile() {
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
                 </select>
-                <label htmlFor='add-gluten-free'>gluten Free:</label>
+                <label htmlFor='add-gluten-free'>Gluten free:</label>
                 <select 
                     id='add-gluten-free' 
                     name='glutenFree'
@@ -123,7 +162,7 @@ function AddProfile() {
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
                 </select>
-                <label htmlFor='add-dairy-free'>Dairy Free:</label>
+                <label htmlFor='add-dairy-free'>Dairy free:</label>
                 <select 
                     id='add-dairy-free' 
                     name='dairyFree'
@@ -132,17 +171,6 @@ function AddProfile() {
                 >
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
-                </select>
-                <label htmlFor='add-health-goal'>Health Goal:</label>
-                <select 
-                    id='add-health-goal' 
-                    name='healthGoal'
-                    value={addProfile.healthGoal}
-                    onChange={updateAddProfile}
-                >
-                    <option value='maintain'>I want to maintain my weight</option>
-                    <option value='lose'>I want to lose weight</option>
-                    <option value='gain'>I want to gain weight</option>
                 </select>
                 <button>Submit Profile</button>
             </form>

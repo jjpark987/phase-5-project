@@ -2,13 +2,14 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login, profileCreated } from './reducers/authSlice';
+import { login } from './reducers/authSlice';
 import { updateProfile } from './reducers/profileSlice';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Auth from './components/Auth';
 import Profile from './components/profile/Profile';
 import AddProfile from './components/profile/AddProfile';
+import EditProfile from './components/profile/EditProfile';
 import PageNotFound from './components/PageNotFound';
 import LoginPrompt from './components/LoginPrompt';
 
@@ -21,10 +22,7 @@ function App() {
             if (res.ok) {
                 res.json().then(userData => {
                     dispatch(login(userData));
-                    if (userData.profile) {
-                        dispatch(profileCreated());
-                        dispatch(updateProfile(userData.profile));
-                    }
+                    userData.profile && dispatch(updateProfile(userData.profile));
                 });
             }
         })
@@ -46,6 +44,9 @@ function App() {
                 } />
                 <Route path='/profile/add' element={
                     <AddProfile />
+                } />
+                <Route path='/profile/edit' element={
+                    <EditProfile />
                 } />
                 <Route path='/login-prompt' element={
                     <LoginPrompt />

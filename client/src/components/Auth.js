@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login, profileCreated } from "../reducers/authSlice";
+import { login } from "../reducers/authSlice";
 import { updateProfile } from "../reducers/profileSlice";
 
 
@@ -47,10 +47,7 @@ function Auth() {
             if (res.ok) {
                 responseBody.then(userData => {
                     dispatch(login(userData));
-                    if (userData.profile) {
-                        dispatch(profileCreated());
-                        dispatch(updateProfile(userData.profile));
-                    }
+                    userData.profile && dispatch(updateProfile(userData.profile));
                     setErrors([]);
                     navigate('/');
                 });

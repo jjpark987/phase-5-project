@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     has_one :profile
+    has_many :meals
+    has_many :recipes, through: :meals
 
     has_secure_password
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_27_172324) do
+ActiveRecord::Schema.define(version: 2023_10_05_185911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,15 +19,36 @@ ActiveRecord::Schema.define(version: 2023_09_27_172324) do
     t.bigint "user_id", null: false
     t.string "sex"
     t.integer "age"
+    t.integer "height"
     t.float "weight"
+    t.string "activity_level"
+    t.string "health_goal"
     t.boolean "vegetarian"
     t.boolean "vegan"
     t.boolean "gluten_free"
     t.boolean "dairy_free"
-    t.string "health_goal"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.string "cuisine"
+    t.boolean "is_vegetarian"
+    t.boolean "is_vegan"
+    t.boolean "is_gluten_free"
+    t.boolean "is_dairy_free"
+    t.float "calories"
+    t.float "proteins"
+    t.float "carbs"
+    t.float "fats"
+    t.integer "servings"
+    t.string "ingredients", default: [], array: true
+    t.string "instructions", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -30,15 +30,19 @@ id = 1
         user_id: id,
         sex: ['male', 'female'].sample,
         age: rand(12..70),
+        height: rand(54..90),
         weight: rand(90.0..200.0).round(1),
+        activity_level: ['sedentary', 'light', 'moderate', 'high', 'vigorous'].sample,
+        health_goal: ['lose', 'maintain', 'gain'].sample,
         vegetarian: [true, false].sample,
         vegan: [true, false].sample,
         gluten_free: [true, false].sample,
-        dairy_free: [true, false].sample,
-        health_goal: ['lose', 'maintain', 'gain'].sample
+        dairy_free: [true, false].sample
     )
 
     id += 1
 end
 
 puts '... done seeding profiles'
+
+puts 'Seeding pasta, '

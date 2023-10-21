@@ -10,6 +10,8 @@ import Auth from './components/Auth';
 import Profile from './components/profile/Profile';
 import AddProfile from './components/profile/AddProfile';
 import EditProfile from './components/profile/EditProfile';
+import Recipes from './components/recipe/Recipes';
+import RecipeDetails from './components/recipe/RecipeDetails';
 import PageNotFound from './components/PageNotFound';
 import LoginPrompt from './components/LoginPrompt';
 
@@ -47,6 +49,12 @@ function App() {
                 } />
                 <Route path='/profile/edit' element={
                     <EditProfile />
+                } />
+                <Route path='/recipes' element={
+                    <Recipes />
+                } />
+                <Route path='/recipes/:id' element={
+                    <RecipeDetails />
                 } />
                 <Route path='/login-prompt' element={
                     <LoginPrompt />

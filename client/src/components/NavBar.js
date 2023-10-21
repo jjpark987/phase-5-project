@@ -37,6 +37,7 @@ function NavBar() {
         <nav>
             <button onClick={() => navigate('/')}>TITLE</button>
             <button onClick={handleProfileClick}>My Profile</button>
+            <button onClick={() => navigate('/recipes')}>Recipes</button>
             {user.id ? 
                 <button onClick={logoutUser}>Logout</button> 
             : 

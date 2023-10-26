@@ -5,6 +5,8 @@ class Recipe < ApplicationRecord
     before_validation :downcase_attributes
 
     validates :name, uniqueness: true
+    validates :calories, :proteins, :carbs, :fats, :servings, numericality: true
+    validate :validate_ingredients
 
     def self.unique_attributes
         {
@@ -18,5 +20,13 @@ class Recipe < ApplicationRecord
     def downcase_attributes
         self.cuisines = cuisines.map(&:downcase)
         self.types = types.map(&:downcase)
+    end
+
+    def validate_ingredients
+        ingredients.each do |ingredient|
+            unless ingredient =~ /^\d+(\.\d+)?\s+\w+(\s+\w+)*$/
+                errors.add(:ingredients, "'#{ingredient}' is not in the correct format. Needs to start with a number then string(s) afterwards. For example, '0.5 tablespoons olive oil' or '3 apples'.")
+            end
+        end
     end
 end

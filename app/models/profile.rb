@@ -8,7 +8,6 @@ class Profile < ApplicationRecord
     validates :sex, inclusion: ['male', 'female']
     validates :activity_level, inclusion: ['sedentary', 'light', 'moderate', 'high', 'vigorous']
     validates :health_goal, inclusion: ['lose', 'maintain', 'gain']
-    validates :vegetarian, :vegan, :gluten_free, :dairy_free, inclusion: [true, false]
 
     def calculate_bmr
         case sex

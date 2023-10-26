@@ -7,6 +7,7 @@ import { clearProfile } from "../reducers/profileSlice";
 function NavBar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    
     const user = useSelector(state => state.auth);
     const profile = useSelector(state => state.profile);
 

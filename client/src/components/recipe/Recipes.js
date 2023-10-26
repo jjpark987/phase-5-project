@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Recipe from "./Recipe";
 
 function Recipes() {
+    const navigate = useNavigate();
+
     const profile = useSelector(state => state.profile);
+    const attributes = useSelector(state => state.attributes);
 
     const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
-    const [attributes, setAttributes] = useState({
-        cuisines: [],
-        types: []
-    });
-    const [selectedAttribute, setSelectedAttribute] = useState({
+    const [attribute, setAttribute] = useState({
         cuisine: '',
         type: ''
     });
@@ -23,19 +23,6 @@ function Recipes() {
         .then(res => {
             if (res.ok) {
                 res.json().then(recipeData => setRecipes(recipeData));
-            }
-        })
-        .catch(error => console.error(error));
-
-        fetch('/recipes/unique_attributes')
-        .then(res => {
-            if (res.ok) {
-                res.json().then(attributesData => {
-                    setAttributes({
-                        cuisines: attributesData.cuisines,
-                        types: attributesData.types
-                    });
-                });
             }
         })
         .catch(error => console.error(error));
@@ -60,13 +47,13 @@ function Recipes() {
     }
 
     function filterCuisine(recipe) {
-        if (recipe.cuisines.includes(selectedAttribute.cuisine.toLowerCase()) || selectedAttribute.cuisine === '') {
+        if (recipe.cuisines.includes(attribute.cuisine.toLowerCase()) || attribute.cuisine === '') {
             return true;
         }
     }
 
     function filterType(recipe) {
-        if (recipe.types.includes(selectedAttribute.type.toLowerCase()) || selectedAttribute.type === '') {
+        if (recipe.types.includes(attribute.type.toLowerCase()) || attribute.type === '') {
             return true;
         }
     }
@@ -96,8 +83,8 @@ function Recipes() {
                         onChange={e => setSearch(e.target.value)}
                     />
                     <select 
-                        value={selectedAttribute.cuisine} 
-                        onChange={e => setSelectedAttribute({ ...selectedAttribute, cuisine: e.target.value})}
+                        value={attribute.cuisine} 
+                        onChange={e => setAttribute({ ...attribute, cuisine: e.target.value})}
                     >
                         <option value=''>Filter cuisine</option>
                         {attributes.cuisines.map((cuisine, index) => (
@@ -105,8 +92,8 @@ function Recipes() {
                         ))}
                     </select>
                     <select
-                        value={selectedAttribute.type} 
-                        onChange={e => setSelectedAttribute({ ...selectedAttribute, type: e.target.value})}
+                        value={attribute.type} 
+                        onChange={e => setAttribute({ ...attribute, type: e.target.value})}
                     >
                         <option value=''>Filter type</option>
                         {attributes.types.map((type, index) => (
@@ -124,6 +111,9 @@ function Recipes() {
                         <option value='fats'>Fats</option>
                     </select>
                 </form>
+            </div>
+            <div>
+                <button onClick={() => navigate('/recipes/add')}>Create recipe</button>
             </div>
             <div>
                 {recipes

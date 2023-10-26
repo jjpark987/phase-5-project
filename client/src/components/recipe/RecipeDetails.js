@@ -19,7 +19,7 @@ function RecipeDetails() {
             }
         })
         .catch(error => console.error(error));
-    }, []);
+    }, [recipeId.id]);
 
     if (errors.error) {
         return (

@@ -25,7 +25,10 @@ function AddProfile() {
     const [errors, setErrors] = useState([]);
 
     function updateAddProfile(e) {
-        setAddProfile({ ...addProfile, [e.target.name]: e.target.value });
+        setAddProfile({
+            ...addProfile, 
+            [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value 
+        });
     }
 
     function submitAddProfile(e) {
@@ -133,45 +136,40 @@ function AddProfile() {
                     <option value='gain'>I want to gain weight</option>
                 </select>
                 <label htmlFor='add-vegetarian'>Vegetarian:</label>
-                <select 
+                <input 
                     id='add-vegetarian' 
+                    type='checkbox' 
                     name='vegetarian'
-                    value={addProfile.vegetarian}
+                    checked={addProfile.vegetarian}
                     onChange={updateAddProfile}
-                >
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option>
-                </select>
+                />
+
                 <label htmlFor='add-vegan'>Vegan:</label>
-                <select 
+                <input 
                     id='add-vegan' 
+                    type='checkbox' 
                     name='vegan'
-                    value={addProfile.vegan}
+                    checked={addProfile.vegan}
                     onChange={updateAddProfile}
-                >
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option>
-                </select>
+                />
+
                 <label htmlFor='add-gluten-free'>Gluten free:</label>
-                <select 
+                <input 
                     id='add-gluten-free' 
+                    type='checkbox' 
                     name='glutenFree'
-                    value={addProfile.glutenFree}
+                    checked={addProfile.glutenFree}
                     onChange={updateAddProfile}
-                >
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option>
-                </select>
+                />
+
                 <label htmlFor='add-dairy-free'>Dairy free:</label>
-                <select 
+                <input 
                     id='add-dairy-free' 
+                    type='checkbox' 
                     name='dairyFree'
-                    value={addProfile.dairyFree}
+                    checked={addProfile.dairyFree}
                     onChange={updateAddProfile}
-                >
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option>
-                </select>
+                />
                 <button>Submit Profile</button>
             </form>
             <div>

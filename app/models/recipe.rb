@@ -2,7 +2,7 @@ class Recipe < ApplicationRecord
     # has_many :meals
     # has_many :users, through: :meals
 
-    before_validation :downcase_attributes
+    before_validation :downcase_attributes, :remove_repeat_cuisines, :remove_repeat_types
 
     validates :name, uniqueness: true
     validates :calories, :proteins, :carbs, :fats, :servings, numericality: true
@@ -20,6 +20,25 @@ class Recipe < ApplicationRecord
     def downcase_attributes
         self.cuisines = cuisines.map(&:downcase)
         self.types = types.map(&:downcase)
+    end
+
+    def remove_repeat_cuisines
+        cuisines.reject! do |cuisine| 
+            cuisine == 'bbq' ||
+            cuisine == 'eastern european'
+        end
+    end
+
+    def remove_repeat_types
+        types.reject! do |type| 
+            type == 'antipasti' ||
+            type == 'antipasto' ||
+            type == "hor d'oeuvre" ||
+            type == 'drink' ||
+            type == 'main course' ||
+            type == 'morning meal' ||
+            type == 'starter'
+        end
     end
 
     def validate_ingredients

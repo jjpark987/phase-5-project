@@ -1,10 +1,10 @@
 class Recipe < ApplicationRecord
-    # has_many :meals
-    # has_many :users, through: :meals
+    has_many :meals
+    has_many :users, through: :meals
 
-    before_validation :downcase_attributes, :remove_repeat_cuisines, :remove_repeat_types
+    before_validation :downcase_attributes, :remove_similar_values
 
-    validates :name, uniqueness: true
+    validates :name, presence: true, uniqueness: true
     validates :calories, :proteins, :carbs, :fats, :servings, numericality: true
     validate :validate_ingredients
 
@@ -22,14 +22,12 @@ class Recipe < ApplicationRecord
         self.types = types.map(&:downcase)
     end
 
-    def remove_repeat_cuisines
+    def remove_similar_values
         cuisines.reject! do |cuisine| 
             cuisine == 'bbq' ||
             cuisine == 'eastern european'
         end
-    end
 
-    def remove_repeat_types
         types.reject! do |type| 
             type == 'antipasti' ||
             type == 'antipasto' ||

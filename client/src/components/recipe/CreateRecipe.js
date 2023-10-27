@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LoginPrompt from "../LoginPrompt";
 
-function AddRecipe() {
+function CreateRecipe() {
     const navigate = useNavigate();
 
+    const userId = useSelector(state => state.auth.id);
     const attributes = useSelector(state => state.attributes);
 
-    const [addRecipe, setAddRecipe] = useState({
+    const [createRecipe, setCreateRecipe] = useState({
         name: '',
         image: '',
         cuisines: {
@@ -32,43 +34,43 @@ function AddRecipe() {
     });
     const [errors, setErrors] = useState([]);
 
-    function updateAddRecipe(e) {
-        setAddRecipe({
-            ...addRecipe, 
+    function updateCreateRecipe(e) {
+        setCreateRecipe({
+            ...createRecipe, 
             [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value 
         });
     }
 
-    function updateAddRecipeCheckboxes(e) {
+    function updateCreateRecipeCheckboxes(e) {
         const { name, value, checked } = e.target;
     
-        setAddRecipe({
-            ...addRecipe,
+        setCreateRecipe({
+            ...createRecipe,
             [name]: {
-                ...addRecipe[name],
+                ...createRecipe[name],
                 checkboxes: checked
-                    ? [...addRecipe[name].checkboxes, value]
-                    : addRecipe[name].checkboxes.filter(item => item !== value),
+                    ? [...createRecipe[name].checkboxes, value]
+                    : createRecipe[name].checkboxes.filter(item => item !== value),
             },
         });
     }
 
-    function updateAddRecipeInputs(attribute, value, index) {
+    function updateCreateRecipeInputs(attribute, value, index) {
         if (attribute === 'cuisines' || attribute === 'types') {
-            const updatedAttributes = [...addRecipe[attribute].inputs];
+            const updatedAttributes = [...createRecipe[attribute].inputs];
             updatedAttributes[index] = value;
-            setAddRecipe({ 
-                ...addRecipe,
+            setCreateRecipe({ 
+                ...createRecipe,
                 [attribute]: {
-                    ...addRecipe[attribute],
+                    ...createRecipe[attribute],
                     inputs: updatedAttributes
                 }
             });
         } else {
-            const updateAttributes = [...addRecipe[attribute]];
+            const updateAttributes = [...createRecipe[attribute]];
             updateAttributes[index] = value;
-            setAddRecipe({
-                ...addRecipe,
+            setCreateRecipe({
+                ...createRecipe,
                 [attribute]: updateAttributes
             });
         }
@@ -76,58 +78,58 @@ function AddRecipe() {
 
     function addInput(attribute) {
         if (attribute === 'cuisines' || attribute === 'types') {
-            setAddRecipe({
-                ...addRecipe,
+            setCreateRecipe({
+                ...createRecipe,
                 [attribute]: {
-                    ...addRecipe[attribute],
-                    inputs: [...addRecipe[attribute].inputs, '']
+                    ...createRecipe[attribute],
+                    inputs: [...createRecipe[attribute].inputs, '']
                 }
             });
         } else {
-            setAddRecipe({
-                ...addRecipe,
-                [attribute]: [...addRecipe[attribute], '']
+            setCreateRecipe({
+                ...createRecipe,
+                [attribute]: [...createRecipe[attribute], '']
             });
         }
     }
 
     function removeInput(attribute, index) {
         if (attribute === 'cuisines' || attribute === 'types') {
-            setAddRecipe({
-                ...addRecipe,
+            setCreateRecipe({
+                ...createRecipe,
                 [attribute]: {
-                    ...addRecipe[attribute],
-                    inputs: addRecipe[attribute].inputs.filter((_, i) => i !== index)
+                    ...createRecipe[attribute],
+                    inputs: createRecipe[attribute].inputs.filter((_, i) => i !== index)
                 }
             });
         } else {
-            setAddRecipe({
-                ...addRecipe,
-                [attribute]: addRecipe[attribute].filter((_, i) => i !== index)
+            setCreateRecipe({
+                ...createRecipe,
+                [attribute]: createRecipe[attribute].filter((_, i) => i !== index)
             });
         }
     }
 
-    function submitAddRecipe(e) {
+    function submitCreateRecipe(e) {
         e.preventDefault();
 
         const requestBody = {
             recipe: {
-                name: addRecipe.name,
-                image: addRecipe.image,
-                cuisines: addRecipe.cuisines.checkboxes.concat(addRecipe.cuisines.inputs),
-                types: addRecipe.types.checkboxes.concat(addRecipe.types.inputs),
-                is_vegetarian: addRecipe.isVegetarian,
-                is_vegan: addRecipe.isVegan,
-                is_gluten_free: addRecipe.isGlutenFree,
-                is_dairy_free: addRecipe.isDairyFree,
-                calories: addRecipe.calories,
-                proteins: addRecipe.proteins,
-                carbs: addRecipe.carbs,
-                fats: addRecipe.fats,
-                servings: addRecipe.servings,
-                ingredients: addRecipe.ingredients,
-                instructions: addRecipe.instructions
+                name: createRecipe.name,
+                image: createRecipe.image,
+                cuisines: createRecipe.cuisines.checkboxes.concat(createRecipe.cuisines.inputs),
+                types: createRecipe.types.checkboxes.concat(createRecipe.types.inputs),
+                is_vegetarian: createRecipe.isVegetarian,
+                is_vegan: createRecipe.isVegan,
+                is_gluten_free: createRecipe.isGlutenFree,
+                is_dairy_free: createRecipe.isDairyFree,
+                calories: createRecipe.calories,
+                proteins: createRecipe.proteins,
+                carbs: createRecipe.carbs,
+                fats: createRecipe.fats,
+                servings: createRecipe.servings,
+                ingredients: createRecipe.ingredients,
+                instructions: createRecipe.instructions
             }
         }
 
@@ -150,23 +152,29 @@ function AddRecipe() {
         .catch(error => console.error(error));
     }
 
+    if (!userId) {
+        return (
+            <LoginPrompt />
+        );
+    }
+
     return (
         <div>
             <h1>Create Recipe</h1>
-            <form onSubmit={submitAddRecipe}>
+            <form onSubmit={submitCreateRecipe}>
                 <label htmlFor='add-name'>Name:</label>
                 <input 
                     id='add-name'
                     name='name'
-                    value={addRecipe.name}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.name}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-image'>Image URL:</label>
                 <input 
                     id='add-image'
                     name='image'
-                    value={addRecipe.image}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.image}
+                    onChange={updateCreateRecipe}
                 />
                 <label>Cuisines:</label>
                 {attributes.cuisines.map((cuisine, index) => (
@@ -175,18 +183,18 @@ function AddRecipe() {
                             id={`add-${cuisine}-cuisine`}
                             name='cuisines'
                             type='checkbox'
-                            checked={addRecipe.cuisines.checkboxes.includes(cuisine)}
+                            checked={createRecipe.cuisines.checkboxes.includes(cuisine)}
                             value={cuisine}
-                            onChange={updateAddRecipeCheckboxes}
+                            onChange={updateCreateRecipeCheckboxes}
                         />
                         <label htmlFor={`add-${cuisine}-cuisine`}>{cuisine}</label>
                     </div>
                 ))}
-                {addRecipe.cuisines.inputs.map((cuisine, index) => (
+                {createRecipe.cuisines.inputs.map((cuisine, index) => (
                     <div key={index}>
                         <input 
                             value={cuisine}
-                            onChange={e => updateAddRecipeInputs('cuisines', e.target.value, index)}
+                            onChange={e => updateCreateRecipeInputs('cuisines', e.target.value, index)}
                             placeholder='New cuisine'
                         />
                         <button type='button' onClick={() => removeInput('cuisines', index)}>Delete</button>
@@ -200,18 +208,18 @@ function AddRecipe() {
                             id={`add-${type}-type`}
                             name='types'
                             type='checkbox'
-                            checked={addRecipe.types.checkboxes.includes(type)}
+                            checked={createRecipe.types.checkboxes.includes(type)}
                             value={type}
-                            onChange={updateAddRecipeCheckboxes}
+                            onChange={updateCreateRecipeCheckboxes}
                         />
                         <label htmlFor={`add-${type}-cuisine`}>{type}</label>
                     </div>
                 ))}
-                {addRecipe.types.inputs.map((type, index) => (
+                {createRecipe.types.inputs.map((type, index) => (
                     <div key={index}>
                         <input 
                             value={type}
-                            onChange={e => updateAddRecipeInputs('types', e.target.value, index)}
+                            onChange={e => updateCreateRecipeInputs('types', e.target.value, index)}
                             placeholder='New type'
                         />
                         <button type='button' onClick={() => removeInput('types', index)}>Delete</button>
@@ -223,74 +231,74 @@ function AddRecipe() {
                     type="checkbox"
                     id='add-is-vegetarian'
                     name='isVegetarian'
-                    checked={addRecipe.isVegetarian === true}
-                    onChange={updateAddRecipe}
+                    checked={createRecipe.isVegetarian === true}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-is-vegan'>Vegan:</label>
                 <input
                     type="checkbox"
                     id='add-is-vegan'
                     name='isVegan'
-                    checked={addRecipe.isVegan === true}
-                    onChange={updateAddRecipe}
+                    checked={createRecipe.isVegan === true}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-is-gluten-free'>Gluten free:</label>
                 <input
                     type="checkbox"
                     id='add-is-gluten-free'
                     name='isGlutenFree'
-                    checked={addRecipe.isGlutenFree === true}
-                    onChange={updateAddRecipe}
+                    checked={createRecipe.isGlutenFree === true}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-is-dairy-free'>Dairy free:</label>
                 <input
                     type="checkbox"
                     id='add-is-dairy-free'
                     name='isDairyFree'
-                    checked={addRecipe.isDairyFree === true}
-                    onChange={updateAddRecipe}
+                    checked={createRecipe.isDairyFree === true}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-calories'>Calories:</label>
                 <input 
                     id='add-calories' 
                     name='calories'
-                    value={addRecipe.calories}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.calories}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-proteins'>Proteins (g):</label>
                 <input 
                     id='add-proteins' 
                     name='proteins'
-                    value={addRecipe.proteins}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.proteins}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-carbs'>Carbs (g):</label>
                 <input 
                     id='add-carbs' 
                     name='carbs'
-                    value={addRecipe.carbs}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.carbs}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-fats'>Fats (g):</label>
                 <input 
                     id='add-fats' 
                     name='fats'
-                    value={addRecipe.fats}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.fats}
+                    onChange={updateCreateRecipe}
                 />
                 <label htmlFor='add-servings'>Servings:</label>
                 <input 
                     id='add-servings' 
                     name='servings'
-                    value={addRecipe.servings}
-                    onChange={updateAddRecipe}
+                    value={createRecipe.servings}
+                    onChange={updateCreateRecipe}
                 />
                 <label>Ingredients (amount unit name):</label>
-                {addRecipe.ingredients.map((ingredient, index) => (
+                {createRecipe.ingredients.map((ingredient, index) => (
                     <div key={index}>
                         <input 
                             value={ingredient}
-                            onChange={e => updateAddRecipeInputs('ingredients', e.target.value, index)}
+                            onChange={e => updateCreateRecipeInputs('ingredients', e.target.value, index)}
                             placeholder='New ingredient'
                         />
                         <button type='button' onClick={() => removeInput('ingredients', index)}>Delete</button>
@@ -298,11 +306,11 @@ function AddRecipe() {
                 ))}
                 <button type='button' onClick={() => addInput('ingredients')}>Enter new ingredient</button>
                 <label>Instructions:</label>
-                {addRecipe.instructions.map((instruction, index) => (
+                {createRecipe.instructions.map((instruction, index) => (
                     <div key={index}>
                         <input 
                             value={instruction}
-                            onChange={e => updateAddRecipeInputs('instructions', e.target.value, index)}
+                            onChange={e => updateCreateRecipeInputs('instructions', e.target.value, index)}
                             placeholder='New step'
                         />
                         <button type='button' onClick={() => removeInput('instructions', index)}>Delete</button>
@@ -320,4 +328,4 @@ function AddRecipe() {
     );
 }
 
-export default AddRecipe;
+export default CreateRecipe;

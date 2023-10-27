@@ -9,37 +9,29 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Auth from './components/Auth';
 import Profile from './components/profile/Profile';
-import AddProfile from './components/profile/AddProfile';
+import CreateProfile from './components/profile/CreateProfile';
 import EditProfile from './components/profile/EditProfile';
 import Recipes from './components/recipe/Recipes';
 import RecipeDetails from './components/recipe/RecipeDetails';
-import AddRecipe from './components/recipe/AddRecipe';
-import PageNotFound from './components/PageNotFound';
+import CreateRecipe from './components/recipe/CreateRecipe';
 import LoginPrompt from './components/LoginPrompt';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
         fetch('/me')
-        .then(res => {
-            if (res.ok) {
-                res.json().then(userData => {
-                    dispatch(login(userData));
-                    userData.profile && dispatch(updateProfile(userData.profile));
-                });
-            }
+        .then(res => res.json())
+        .then(userData => {
+            dispatch(login(userData));
+            userData.profile && dispatch(updateProfile(userData.profile));
         })
         .catch(error => console.error(error));
 
         fetch('/recipes/unique_attributes')
-        .then(res => {
-            if (res.ok) {
-                res.json().then(attributesData => {
-                    dispatch(updateAttributes(attributesData));
-                });
-            }
-        })
+        .then(res => res.json())
+        .then(attributesData => dispatch(updateAttributes(attributesData)))      
         .catch(error => console.error(error));
     }, [dispatch]);
 
@@ -56,8 +48,8 @@ function App() {
                 <Route path='/profile' element={
                     <Profile />
                 } />
-                <Route path='/profile/add' element={
-                    <AddProfile />
+                <Route path='/profile/create' element={
+                    <CreateProfile />
                 } />
                 <Route path='/profile/edit' element={
                     <EditProfile />
@@ -68,8 +60,8 @@ function App() {
                 <Route path='/recipes/:id' element={
                     <RecipeDetails />
                 } />
-                <Route path='/recipes/add' element={
-                    <AddRecipe />
+                <Route path='/recipes/create' element={
+                    <CreateRecipe />
                 } />
                 <Route path='/login-prompt' element={
                     <LoginPrompt />

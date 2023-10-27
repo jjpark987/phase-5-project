@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../reducers/profileSlice";
+import LoginPrompt from "../LoginPrompt";
 
 function EditProfile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user = useSelector(state => state.auth);
+    const userId = useSelector(state => state.auth.id);
     const profile = useSelector(state => state.profile);
 
     const [editProfile, setEditProfile] = useState({
@@ -34,7 +35,7 @@ function EditProfile() {
 
         const requestBody = {
             profile: {
-                user_id: user.id,
+                user_id: userId,
                 sex: editProfile.sex,
                 age: editProfile.age,
                 height: parseInt(editProfile.heightFeet) * 12 + parseInt(editProfile.heightInches),
@@ -66,6 +67,12 @@ function EditProfile() {
             }
         })
         .catch(error => console.error(error));
+    }
+
+    if (!userId) {
+        return (
+            <LoginPrompt />
+        );
     }
 
     return (

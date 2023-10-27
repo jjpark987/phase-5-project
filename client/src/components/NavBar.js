@@ -8,12 +8,12 @@ function NavBar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const user = useSelector(state => state.auth);
-    const profile = useSelector(state => state.profile);
+    const userId = useSelector(state => state.auth.id);
+    const profileId = useSelector(state => state.profile.id);
 
     function handleProfileClick() {
-        if (user.id) {
-            profile.id ? navigate('/profile') : navigate('/profile/add');
+        if (userId) {
+            profileId ? navigate('/profile') : navigate('/profile/create');
         } else {
             navigate('/login-prompt');
         }
@@ -24,12 +24,10 @@ function NavBar() {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => {
-            if (res.ok) {
-                dispatch(logout());
-                dispatch(clearProfile());
-                navigate('/');
-            }
+        .then(() => {
+            dispatch(logout());
+            dispatch(clearProfile());
+            navigate('/');
         })
         .catch(error => console.error(error));
     }
@@ -37,9 +35,9 @@ function NavBar() {
     return (
         <nav>
             <button onClick={() => navigate('/')}>TITLE</button>
-            <button onClick={handleProfileClick}>My Profile</button>
             <button onClick={() => navigate('/recipes')}>Recipes</button>
-            {user.id ? 
+            <button onClick={handleProfileClick}>My Profile</button>
+            {userId ? 
                 <button onClick={logoutUser}>Logout</button> 
             : 
                 <button onClick={() => navigate('/login')}>Login</button>

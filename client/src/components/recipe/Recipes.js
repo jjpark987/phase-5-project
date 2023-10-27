@@ -20,27 +20,23 @@ function Recipes() {
 
     useEffect(() => {
         fetch('/recipes')
-        .then(res => {
-            if (res.ok) {
-                res.json().then(recipeData => setRecipes(recipeData));
-            }
-        })
+        .then(res => res.json())
+        .then(recipeData => setRecipes(recipeData))
         .catch(error => console.error(error));
     }, []);
     
     function filterDietaryRestrictions(recipe) {
-        if (profile.vegetarian && !recipe.is_vegetarian) {
+        if (
+            (profile.vegetarian && !recipe.is_vegetarian) ||
+            (profile.vegan && !recipe.is_vegan) ||
+            (profile.glutenFree && !recipe.is_gluten_free) ||
+            (profile.dairyFree && !recipe.is_dairy_free)
+        ) {
             return false;
-        } else if (profile.vegan && !recipe.is_vegan) {
-            return false;
-        } else if (profile.glutenFree && !recipe.is_gluten_free) {
-            return false;
-        } else if (profile.dairyFree && !recipe.is_dairy_free) {
-            return false;
-        } else {
-            return true;
         }
+        return true;
     }
+    
 
     function searchRecipes(recipe) {
         return recipe.name.toLowerCase().includes(search.toLowerCase());
@@ -113,7 +109,7 @@ function Recipes() {
                 </form>
             </div>
             <div>
-                <button onClick={() => navigate('/recipes/add')}>Create recipe</button>
+                <button onClick={() => navigate('/recipes/create')}>Create recipe</button>
             </div>
             <div>
                 {recipes

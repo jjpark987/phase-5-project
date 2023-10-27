@@ -11,8 +11,6 @@ class UsersController < ApplicationController
     # get '/me'
     def show
         render json: User.find(session[:user_id])
-    rescue ActiveRecord::RecordNotFound
-        render json: { error: ['Not authorized'] }, status: :unauthorized
     end
 
     private

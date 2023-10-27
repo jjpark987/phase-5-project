@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import LoginPrompt from "../LoginPrompt";
 
 function RecipeDetails() {
     const navigate = useNavigate();
     const recipeId = useParams();
+
+    const userId = useSelector(state => state.auth.id);
 
     const [recipe, setRecipe] = useState('');
     const [errors, setErrors] = useState('');
@@ -37,10 +41,16 @@ function RecipeDetails() {
         .catch(error => console.error(error));
     }
 
-    if (errors.error) {
+    if (!userId) {
+        return (
+            <LoginPrompt />
+        );
+    } else if (errors.error) {
         return (
             <div>
-                <h1>{errors.error}</h1>
+                {errors.error && (errors.error.map((error, index) => 
+                    <h3 key={index}>{error}</h3>
+                ))}
             </div>
         );
     }

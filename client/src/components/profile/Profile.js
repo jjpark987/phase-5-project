@@ -1,9 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import LoginPrompt from "../LoginPrompt";
 
 function Profile() {
+    const userId = useSelector(state => state.auth.id);
     const profile = useSelector(state => state.profile);
+
+    if (!userId) {
+        return (
+            <LoginPrompt />
+        );
+    }
 
     return (
         <div>

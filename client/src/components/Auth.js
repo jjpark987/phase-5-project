@@ -136,54 +136,54 @@ function Auth() {
                 </div>
             </div>
         );
-    } else {
-        return (
-            <div>
-                <button type='button' onClick={handleShowLoginClick}>Log In</button>
-                <h1>Sign Up</h1>
-                <form onSubmit={submitNewAccount}>
-                    <label htmlFor='signup-email'>Email:</label>
-                    <input 
-                        id='signup-email' 
-                        name='email'
-                        value={newAccount.email} 
-                        onChange={updateNewAccount}
-                        required
-                    />
-                    <label htmlFor='signup-username'>Username:</label>
-                    <input 
-                        id='signup-username' 
-                        name='username'
-                        value={newAccount.username} 
-                        onChange={updateNewAccount}
-                        required
-                    />
-                    <label htmlFor='signup-password'>Password:</label>
-                    <input 
-                        id='signup-password' 
-                        name='password'
-                        value={newAccount.password} 
-                        onChange={updateNewAccount}
-                        required
-                    />
-                    <label htmlFor='signup-password-confirmation'>Password Confirmation:</label>
-                    <input 
-                        id='signup-password-confirmation' 
-                        name='passwordConfirmation'
-                        value={newAccount.passwordConfirmation} 
-                        onChange={updateNewAccount}
-                        required
-                    />
-                    <button>Sign Up</button>
-                </form>
-                <div>
-                    {errors.error && (errors.error.map((error, index) => 
-                        <h3 key={index}>{error}</h3>
-                    ))}
-                </div>
-            </div>
-        );
     }
+    
+    return (
+        <div>
+            <button type='button' onClick={handleShowLoginClick}>Log In</button>
+            <h1>Sign Up</h1>
+            <form onSubmit={submitNewAccount}>
+                <label htmlFor='signup-email'>Email:</label>
+                <input 
+                    id='signup-email' 
+                    name='email'
+                    value={newAccount.email} 
+                    onChange={updateNewAccount}
+                    required
+                />
+                <label htmlFor='signup-username'>Username:</label>
+                <input 
+                    id='signup-username' 
+                    name='username'
+                    value={newAccount.username} 
+                    onChange={updateNewAccount}
+                    required
+                />
+                <label htmlFor='signup-password'>Password:</label>
+                <input 
+                    id='signup-password' 
+                    name='password'
+                    value={newAccount.password} 
+                    onChange={updateNewAccount}
+                    required
+                />
+                <label htmlFor='signup-password-confirmation'>Password Confirmation:</label>
+                <input 
+                    id='signup-password-confirmation' 
+                    name='passwordConfirmation'
+                    value={newAccount.passwordConfirmation} 
+                    onChange={updateNewAccount}
+                    required
+                />
+                <button>Sign Up</button>
+            </form>
+            <div>
+                {errors.error && (errors.error.map((error, index) => 
+                    <h3 key={index}>{error}</h3>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default Auth;

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function RecipeDetails() {
+    const navigate = useNavigate();
     const recipeId = useParams();
 
     const [recipe, setRecipe] = useState('');
@@ -20,6 +21,21 @@ function RecipeDetails() {
         })
         .catch(error => console.error(error));
     }, [recipeId.id]);
+
+    function deleteRecipe() {
+        fetch(`/recipes/${recipeId.id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => {
+            if (res.ok) {
+                navigate('/recipes');
+            } else {
+                res.json().then(errorMsg => setErrors(errorMsg));
+            }
+        })
+        .catch(error => console.error(error));
+    }
 
     if (errors.error) {
         return (
@@ -56,6 +72,7 @@ function RecipeDetails() {
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
+            <button onClick={deleteRecipe}>Delete recipe</button>
         </div>
     );
 }

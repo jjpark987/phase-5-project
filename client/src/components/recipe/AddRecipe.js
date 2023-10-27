@@ -38,7 +38,6 @@ function AddRecipe() {
             [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value 
         });
     }
-    
 
     function updateAddRecipeCheckboxes(e) {
         const { name, value, checked } = e.target;

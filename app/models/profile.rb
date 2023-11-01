@@ -4,7 +4,8 @@ class Profile < ApplicationRecord
     validates_uniqueness_of :user_id
 
     validates :user_id, :sex, :age, :height, :weight, :activity_level, :health_goal, presence: true
-    validates :user_id, :age, :height, :weight, numericality: true
+    validates :user_id, :age, :height, numericality: { only_integer: true }
+    validates :weight, numericality: true
     validates :sex, inclusion: ['male', 'female']
     validates :activity_level, inclusion: ['sedentary', 'light', 'moderate', 'high', 'vigorous']
     validates :health_goal, inclusion: ['lose', 'maintain', 'gain']

@@ -5,7 +5,6 @@ import LoginPrompt from "../LoginPrompt";
 
 function CreateRecipe() {
     const navigate = useNavigate();
-
     const userId = useSelector(state => state.auth.id);
     const attributes = useSelector(state => state.attributes);
 

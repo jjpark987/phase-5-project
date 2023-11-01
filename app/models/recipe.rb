@@ -1,6 +1,6 @@
 class Recipe < ApplicationRecord
-    has_many :meals
-    has_many :users, through: :meals
+    has_many :user_recipes
+    has_many :users, through: :user_recipes
 
     before_validation :downcase_attributes, :remove_similar_values
 

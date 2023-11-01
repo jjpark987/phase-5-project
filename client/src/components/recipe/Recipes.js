@@ -5,7 +5,6 @@ import Recipe from "./Recipe";
 
 function Recipes() {
     const navigate = useNavigate();
-
     const profile = useSelector(state => state.profile);
     const attributes = useSelector(state => state.attributes);
 
@@ -63,6 +62,8 @@ function Recipes() {
             return b.carbs - a.carbs;
         } else if (sortBy === 'fats') {
             return b.fats - a.fats;
+        } else if (sortBy === 'alphabet') {
+            return a.name.localeCompare(b.name);
         } else {
             return 0;
         }
@@ -82,7 +83,7 @@ function Recipes() {
                         value={attribute.cuisine} 
                         onChange={e => setAttribute({ ...attribute, cuisine: e.target.value})}
                     >
-                        <option value=''>Filter cuisine</option>
+                        <option value=''>Filter Cuisine</option>
                         {attributes.cuisines.map((cuisine, index) => (
                             <option key={index} value={cuisine}>{cuisine}</option>
                         ))}
@@ -91,7 +92,7 @@ function Recipes() {
                         value={attribute.type} 
                         onChange={e => setAttribute({ ...attribute, type: e.target.value})}
                     >
-                        <option value=''>Filter type</option>
+                        <option value=''>Filter Type</option>
                         {attributes.types.map((type, index) => (
                             <option key={index} value={type}>{type}</option>
                         ))}
@@ -100,11 +101,12 @@ function Recipes() {
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
                     >
-                        <option value=''>Sort by</option>
+                        <option value=''>Sort By</option>
                         <option value='calories'>Calories</option>
                         <option value='proteins'>Proteins</option>
                         <option value='carbs'>Carbs</option>
                         <option value='fats'>Fats</option>
+                        <option value='alphabet'>Alphabet</option>
                     </select>
                 </form>
             </div>

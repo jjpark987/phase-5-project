@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfile } from "../../reducers/profileSlice";
+import { updateProfile } from "../../slices/profileSlice";
 import LoginPrompt from "../LoginPrompt";
 
 function CreateProfile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const userId = useSelector(state => state.auth.id);
 
     const [createProfile, setCreateProfile] = useState({

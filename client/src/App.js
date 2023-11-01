@@ -2,9 +2,9 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from './reducers/authSlice';
-import { updateProfile } from './reducers/profileSlice';
-import { updateAttributes } from './reducers/attributesSlice';
+import { login } from './slices/authSlice';
+import { updateProfile } from './slices/profileSlice';
+import { updateAttributes } from './slices/attributesSlice';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Auth from './components/Auth';
@@ -14,8 +14,8 @@ import EditProfile from './components/profile/EditProfile';
 import Recipes from './components/recipe/Recipes';
 import RecipeDetails from './components/recipe/RecipeDetails';
 import CreateRecipe from './components/recipe/CreateRecipe';
-import LoginPrompt from './components/LoginPrompt';
 import PageNotFound from './components/PageNotFound';
+import MyRecipes from './components/userRecipe/MyRecipes';
 
 function App() {
     const dispatch = useDispatch();
@@ -63,8 +63,8 @@ function App() {
                 <Route path='/recipes/create' element={
                     <CreateRecipe />
                 } />
-                <Route path='/login-prompt' element={
-                    <LoginPrompt />
+                <Route path='/user_recipes'element={
+                    <MyRecipes />
                 } />
                 <Route path='*' element={
                     <PageNotFound />

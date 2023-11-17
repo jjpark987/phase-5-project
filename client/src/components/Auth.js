@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice";
 import { updateProfile } from "../slices/profileSlice";
+import { updateUserRecipes } from "../slices/userRecipesSlice";
 
 
 function Auth() {
@@ -48,6 +49,7 @@ function Auth() {
                 responseBody.then(userData => {
                     dispatch(login(userData));
                     userData.profile && dispatch(updateProfile(userData.profile));
+                    userData.user_recipes && dispatch(updateUserRecipes(userData.user_recipes));
                     setErrors([]);
                     navigate('/');
                 });

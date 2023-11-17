@@ -6,45 +6,42 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require 'faker'
 require 'rest-client'
 
-puts 'Seeding 10 users...'
+puts 'Seeding 3 users...'
 
-10.times do 
+user = 1
+
+3.times do
     User.create(
-        username: Faker::Internet.username,
-        email: Faker::Internet.email,
-        password: '1',
-        password_confirmation: '1'
+        username: user,
+        email: "#{user}test@gmail.com",
+        password: "#{user}",
+        password_confirmation: "#{user}"
     )
+
+    user += 1
 end
 
 puts '... done seeding users'
 
-puts 'Seeding 10 profiles to the existing 10 users...'
+puts 'Seeding a profile to user 1...'
 
-id = 1
+Profile.create(
+    user_id: 1,
+    sex: 'male',
+    age: 29,
+    height: 70,
+    weight: 155.5,
+    activity_level: 'moderate',
+    health_goal: 'maintain',
+    vegetarian: false,
+    vegan: false,
+    gluten_free: false,
+    dairy_free: true
+)
 
-10.times do
-    Profile.create(
-        user_id: id,
-        sex: ['male', 'female'].sample,
-        age: rand(12..70),
-        height: rand(54..90),
-        weight: rand(90.0..200.0).round(1),
-        activity_level: ['sedentary', 'light', 'moderate', 'high', 'vigorous'].sample,
-        health_goal: ['lose', 'maintain', 'gain'].sample,
-        vegetarian: [true, false].sample,
-        vegan: [true, false].sample,
-        gluten_free: [true, false].sample,
-        dairy_free: [true, false].sample
-    )
-
-    id += 1
-end
-
-puts '... done seeding profiles'
+puts '... done seeding profile'
 
 puts 'Seeding 20 results per chicken, beef, pork, fish, pasta, rice, egg, soup, vegetable, and fruit recipes from Spoonacular...'
 
@@ -143,3 +140,20 @@ recipes_array.each do |recipe_query|
 end
 
 puts '... done seeding recipes'
+
+puts 'Seeding 5 user recipes for user 1...'
+
+user_recipe = 1
+
+5.times do
+    UserRecipe.create(
+        user_id: 1,
+        recipe_id: user_recipe,
+        comments: ["Test comment #{user_recipe}", ''].sample,
+        is_favorite: [true, false].sample
+    )
+
+    user_recipe += 1
+end
+
+puts '... done seeding user recipes'

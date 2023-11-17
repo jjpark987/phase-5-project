@@ -36,7 +36,6 @@ function CreateProfile() {
 
         const requestBody = {
             profile: {
-                user_id: userId,
                 sex: createProfile.sex,
                 age: createProfile.age,
                 height: parseInt(createProfile.heightFeet) * 12 + parseInt(createProfile.heightInches),

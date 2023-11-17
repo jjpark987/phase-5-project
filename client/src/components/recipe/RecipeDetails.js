@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserRecipes } from "../../slices/userRecipesSlice";
+import { updateRecipe } from "../../slices/recipeSlice";
 import LoginPrompt from "../LoginPrompt";
 
 function RecipeDetails() {
     const navigate = useNavigate();
-    const recipeId = useParams();
-
+    const dispatch = useDispatch();
+    const { id: recipeId } = useParams();
     const userId = useSelector(state => state.auth.id);
+    const userRecipes = useSelector(state => state.userRecipes.userRecipes);
+    const userRecipe = userRecipes.find(userRecipe => userRecipe.recipe.id === parseInt(recipeId));
 
     const [recipe, setRecipe] = useState('');
     const [errors, setErrors] = useState('');
 
     useEffect(() => {
-        fetch(`/recipes/${recipeId.id}`)
+        fetch(`/recipes/${recipeId}`)
         .then(res => {
             const responseBody = res.json();
 
@@ -24,21 +28,24 @@ function RecipeDetails() {
             }
         })
         .catch(error => console.error(error));
-    }, [recipeId.id]);
+    }, [recipeId]);
 
-    function deleteRecipe() {
-        fetch(`/recipes/${recipeId.id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+    function deleteUserRecipe() {
+        fetch(`/user_recipes/${userRecipe.id}`, {
+            method: 'DELETE'
         })
-        .then(res => {
-            if (res.ok) {
-                navigate('/recipes');
-            } else {
-                res.json().then(errorMsg => setErrors(errorMsg));
-            }
+        .then(() => {
+            const updatedUserRecipes = userRecipes.filter(userRecipe => userRecipe.recipe.id !== recipe.id);
+
+            dispatch(updateUserRecipes(updatedUserRecipes));
+            navigate('/my-recipes');
         })
         .catch(error => console.error(error));
+    }
+
+    function createUserRecipe() {
+        dispatch(updateRecipe(recipe));
+        navigate('/my-recipes/create');
     }
 
     if (!userId) {
@@ -82,7 +89,9 @@ function RecipeDetails() {
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
-            <button onClick={deleteRecipe}>Delete recipe</button>
+            {userRecipe ?
+            <button onClick={deleteUserRecipe}>Remove from My Recipes</button> :
+            <button onClick={createUserRecipe}>Add to My Recipes</button>}
         </div>
     );
 }

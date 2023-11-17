@@ -2,16 +2,16 @@ class ProfilesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
-    def create
-        render json: Profile.create!(profile_params), status: :created
+    def show
+        render json: Profile.find_by!(user_id: session[:user_id], id: params[:id])
     end
 
-    def show
-        render json: Profile.find(params[:id])
+    def create
+        render json: Profile.create!(user_id: session[:user_id], **profile_params), status: :created
     end
 
     def update
-        profile = Profile.find(params[:id])
+        profile = Profile.find_by!(user_id: session[:user_id], id: params[:id])
         profile.update!(profile_params)
         render json: profile, status: :accepted
     end
@@ -19,7 +19,7 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.require(:profile).permit(:user_id, :sex, :age, :height, :weight, :activity_level, :health_goal, :vegetarian, :vegan, :gluten_free, :dairy_free)
+        params.require(:profile).permit(:sex, :age, :height, :weight, :activity_level, :health_goal, :vegetarian, :vegan, :gluten_free, :dairy_free)
     end
     
     def record_not_found

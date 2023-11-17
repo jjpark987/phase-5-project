@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slices/authSlice";
 import { clearProfile } from "../slices/profileSlice";
+import { clearUserRecipes } from "../slices/userRecipesSlice";
 
 function NavBar() {
     const navigate = useNavigate();
@@ -12,12 +13,12 @@ function NavBar() {
 
     function logoutUser() {
         fetch('/logout', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+            method: 'DELETE'
         })
         .then(() => {
             dispatch(logout());
             dispatch(clearProfile());
+            dispatch(clearUserRecipes());
             navigate('/');
         })
         .catch(error => console.error(error));
@@ -27,7 +28,7 @@ function NavBar() {
         <nav>
             <button onClick={() => navigate('/')}>TITLE</button>
             <button onClick={() => navigate('/recipes')}>All Recipes</button>
-            <button onClick={() => navigate('/user_recipes')}>My Recipes</button>
+            <button onClick={() => navigate('/my-recipes')}>My Recipes</button>
             <button onClick={() => profileId ? navigate('/profile') : navigate('/profile/create')}>My Profile</button>
             {userId ? 
                 <button onClick={logoutUser}>Logout</button> 

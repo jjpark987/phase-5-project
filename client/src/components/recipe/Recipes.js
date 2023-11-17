@@ -71,7 +71,7 @@ function Recipes() {
 
     return (
         <div>
-            <h1>Recipes</h1>
+            <h1>All Recipes</h1>
             <div>
                 <form>
                     <input

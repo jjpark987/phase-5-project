@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2023_10_31_232616) do
   create_table "user_recipes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "recipe_id", null: false
-    t.integer "rating"
     t.string "comments"
     t.boolean "is_favorite"
     t.datetime "created_at", precision: 6, null: false

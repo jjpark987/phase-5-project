@@ -34,7 +34,6 @@ function EditProfile() {
 
         const requestBody = {
             profile: {
-                user_id: userId,
                 sex: editProfile.sex,
                 age: editProfile.age,
                 height: parseInt(editProfile.heightFeet) * 12 + parseInt(editProfile.heightInches),

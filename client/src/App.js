@@ -14,8 +14,10 @@ import EditProfile from './components/profile/EditProfile';
 import Recipes from './components/recipe/Recipes';
 import RecipeDetails from './components/recipe/RecipeDetails';
 import CreateRecipe from './components/recipe/CreateRecipe';
+import UserRecipes from './components/recipe/userRecipe/UserRecipes';
+import CreateUserRecipe from './components/recipe/userRecipe/CreateUserRecipe';
 import PageNotFound from './components/PageNotFound';
-import MyRecipes from './components/userRecipe/MyRecipes';
+import { updateUserRecipes } from './slices/userRecipesSlice';
 
 function App() {
     const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function App() {
         .then(userData => {
             dispatch(login(userData));
             userData.profile && dispatch(updateProfile(userData.profile));
+            userData.user_recipes && dispatch(updateUserRecipes(userData.user_recipes));
         })
         .catch(error => console.error(error));
 
@@ -63,8 +66,11 @@ function App() {
                 <Route path='/recipes/create' element={
                     <CreateRecipe />
                 } />
-                <Route path='/user_recipes'element={
-                    <MyRecipes />
+                <Route path='/my-recipes'element={
+                    <UserRecipes />
+                } />
+                <Route path='/my-recipes/create' element={
+                    <CreateUserRecipe />
                 } />
                 <Route path='*' element={
                     <PageNotFound />

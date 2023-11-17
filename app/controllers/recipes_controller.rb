@@ -17,12 +17,6 @@ class RecipesController < ApplicationController
         render json: recipe, status: :created
     end
 
-    def destroy
-        recipe = Recipe.find(params[:id])
-        recipe.destroy
-        head(:no_content)
-    end
-
     # get '/recipes/unique_attributes'
     def unique_attributes
         attributes = Recipe.unique_attributes

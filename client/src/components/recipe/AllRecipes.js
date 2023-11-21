@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Recipe from "./Recipe";
 
-function Recipes() {
+function AllRecipes() {
     const navigate = useNavigate();
     const profile = useSelector(state => state.profile);
     const attributes = useSelector(state => state.attributes);
@@ -143,4 +143,4 @@ function Recipes() {
     );
 }
 
-export default Recipes;
+export default AllRecipes;

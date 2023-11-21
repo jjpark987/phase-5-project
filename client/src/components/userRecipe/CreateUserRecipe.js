@@ -1,64 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserRecipes } from "../../slices/userRecipesSlice";
-import { updateRecipe } from "../../slices/recipeSlice";
 import LoginPrompt from "../LoginPrompt";
 
-function RecipeDetails() {
+function CreateUserRecipe() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id: recipeId } = useParams();
     const userId = useSelector(state => state.auth.id);
+    const recipe = useSelector(state => state.recipe);
     const userRecipes = useSelector(state => state.userRecipes.userRecipes);
-    const userRecipe = userRecipes.find(userRecipe => userRecipe.recipe.id === parseInt(recipeId));
 
-    const [recipe, setRecipe] = useState('');
-    const [errors, setErrors] = useState('');
+    const [comments, setComments] = useState('');
+    const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-        fetch(`/recipes/${recipeId}`)
+    function updateComments(e) {
+        setComments(e.target.value);
+    }
+
+    function submitUserRecipe(e) {
+        e.preventDefault();
+        
+        const requestBody = {
+            recipe_id: recipe.id,
+            comments: comments,
+            is_favorite: false
+        };
+
+        fetch('/user_recipes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(requestBody)
+        })
         .then(res => {
             const responseBody = res.json();
 
             if (res.ok) {
-                responseBody.then(recipeData => setRecipe(recipeData));
+                responseBody.then(userRecipeData => {
+                    const updatedUserRecipes = [...userRecipes, userRecipeData];
+
+                    dispatch(updateUserRecipes(updatedUserRecipes));
+                    navigate('/my-recipes');
+                });
             } else {
                 responseBody.then(errorMsg => setErrors(errorMsg));
             }
         })
         .catch(error => console.error(error));
-    }, [recipeId]);
-
-    function deleteUserRecipe() {
-        fetch(`/user_recipes/${userRecipe.id}`, {
-            method: 'DELETE'
-        })
-        .then(() => {
-            const updatedUserRecipes = userRecipes.filter(userRecipe => userRecipe.recipe.id !== recipe.id);
-
-            dispatch(updateUserRecipes(updatedUserRecipes));
-            navigate('/my-recipes');
-        })
-        .catch(error => console.error(error));
-    }
-
-    function createUserRecipe() {
-        dispatch(updateRecipe(recipe));
-        navigate('/my-recipes/create');
     }
 
     if (!userId) {
         return (
             <LoginPrompt />
-        );
-    } else if (errors.error) {
-        return (
-            <div>
-                {errors.error && (errors.error.map((error, index) => 
-                    <h3 key={index}>{error}</h3>
-                ))}
-            </div>
         );
     }
 
@@ -89,11 +82,21 @@ function RecipeDetails() {
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
-            {userRecipe ?
-            <button onClick={deleteUserRecipe}>Remove from My Recipes</button> :
-            <button onClick={createUserRecipe}>Add to My Recipes</button>}
+            <form onSubmit={submitUserRecipe}>
+                <textarea 
+                    value={comments}
+                    onChange={updateComments}
+                    placeholder='Add comments here'
+                />
+                <button>Submit</button>
+            </form>
+            <div>
+                {errors.error && (errors.error.map((error, index) => 
+                    <h3 key={index}>{error}</h3>
+                ))}
+            </div>
         </div>
     );
 }
 
-export default RecipeDetails;
+export default CreateUserRecipe;

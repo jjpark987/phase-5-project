@@ -3,5 +3,5 @@ class UserRecipe < ApplicationRecord
     belongs_to :recipe
 
     validates :user_id, :recipe_id, presence: true, numericality: { only_integer: true }
-    validates :recipe_id, uniqueness: true
+    validates :recipe_id, uniqueness: { scope: :user }
 end

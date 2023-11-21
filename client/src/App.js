@@ -5,19 +5,21 @@ import { useDispatch } from 'react-redux';
 import { login } from './slices/authSlice';
 import { updateProfile } from './slices/profileSlice';
 import { updateAttributes } from './slices/attributesSlice';
+import { updateUserRecipes } from './slices/userRecipesSlice';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Auth from './components/Auth';
 import Profile from './components/profile/Profile';
 import CreateProfile from './components/profile/CreateProfile';
 import EditProfile from './components/profile/EditProfile';
-import Recipes from './components/recipe/Recipes';
-import RecipeDetails from './components/recipe/RecipeDetails';
+import AllRecipes from './components/recipe/AllRecipes';
+import ShowRecipe from './components/recipe/ShowRecipe';
 import CreateRecipe from './components/recipe/CreateRecipe';
-import UserRecipes from './components/recipe/userRecipe/UserRecipes';
-import CreateUserRecipe from './components/recipe/userRecipe/CreateUserRecipe';
+import AllUserRecipes from './components/userRecipe/AllUserRecipes';
+import ShowUserRecipe from './components/userRecipe/ShowUserRecipe';
+import CreateUserRecipe from './components/userRecipe/CreateUserRecipe';
+import EditUserRecipe from './components/userRecipe/EditUserRecipe';
 import PageNotFound from './components/PageNotFound';
-import { updateUserRecipes } from './slices/userRecipesSlice';
 
 function App() {
     const dispatch = useDispatch();
@@ -58,19 +60,25 @@ function App() {
                     <EditProfile />
                 } />
                 <Route path='/recipes' element={
-                    <Recipes />
+                    <AllRecipes />
                 } />
                 <Route path='/recipes/:id' element={
-                    <RecipeDetails />
+                    <ShowRecipe />
                 } />
                 <Route path='/recipes/create' element={
                     <CreateRecipe />
                 } />
-                <Route path='/my-recipes'element={
-                    <UserRecipes />
+                <Route path='/my-recipes' element={
+                    <AllUserRecipes />
+                } />
+                <Route path='/my-recipes/:id' element={
+                    <ShowUserRecipe />
                 } />
                 <Route path='/my-recipes/create' element={
                     <CreateUserRecipe />
+                } />
+                <Route path='/my-recipes/:id/edit' element={
+                    <EditUserRecipe />
                 } />
                 <Route path='*' element={
                     <PageNotFound />

@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import LoginPrompt from "../../LoginPrompt";
-import Recipe from "../Recipe";
+import LoginPrompt from "../LoginPrompt";
+import UserRecipe from "./UserRecipe";
 
-function UserRecipes() {
+function AllUserRecipes() {
     const userId = useSelector(state => state.auth.id);
-    const { userRecipes } = useSelector(state => state.userRecipes);
+    const userRecipes = useSelector(state => state.userRecipes.userRecipes);
 
     if (!userId) {
         return (
@@ -20,12 +20,13 @@ function UserRecipes() {
     return (
         <div>
             <h1>My Recipes</h1>
-            {userRecipes
+            {[ ...userRecipes ]
+            .sort((a, b) => (b.is_favorite ? 1 : 0) - (a.is_favorite ? 1 : 0))
             .map(userRecipe => (
-                <Recipe key={userRecipe.id} recipe={userRecipe.recipe} />
+                <UserRecipe key={userRecipe.id} userRecipe={userRecipe} />
             ))}
         </div>
     );
 }
 
-export default UserRecipes;
+export default AllUserRecipes;

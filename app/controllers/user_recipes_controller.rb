@@ -2,6 +2,11 @@ class UserRecipesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
+    def show
+        user_recipe = UserRecipe.find_by!(user_id: session[:user_id], id: params[:id])
+        render json: user_recipe
+    end
+
     def create
         user_recipe = UserRecipe.create!(user_id: session[:user_id], **user_recipe_params)
         render json: user_recipe, status: :created

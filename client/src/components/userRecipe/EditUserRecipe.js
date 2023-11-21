@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserRecipes } from "../../../slices/userRecipesSlice";
+import LoginPrompt from "../LoginPrompt";
+import { updateUserRecipes } from "../../slices/userRecipesSlice";
+import { useNavigate } from "react-router-dom";
 
-function CreateUserRecipe() {
-    const navigate = useNavigate();
+function EditUserRecipe() {
     const dispatch = useDispatch();
-    const { userRecipes } = useSelector(state => state.userRecipes);
+    const navigate = useNavigate();
+    const userId = useSelector(state => state.auth.id);
+    const userRecipes = useSelector(state => state.userRecipes.userRecipes);
     const recipe = useSelector(state => state.recipe);
+    const userRecipe = userRecipes.find(userRecipe => userRecipe.recipe.id === parseInt(recipe.id));
 
-    const [comments, setComments] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [comments, setComments] = useState(userRecipe ? userRecipe.comments : '');
 
     function updateComments(e) {
         setComments(e.target.value);
@@ -18,45 +20,51 @@ function CreateUserRecipe() {
 
     function submitUserRecipe(e) {
         e.preventDefault();
-        
+
         const requestBody = {
-            recipe_id: recipe.id,
-            comments: comments,
-            is_favorite: false
+            ...userRecipe,
+            comments: comments
         };
 
-        fetch('/user_recipes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
+        fetch(`/user_recipes/${userRecipe.id}`, {
+            method: 'PATCH',
+            headers : { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
         })
-        .then(res => {
-            const responseBody = res.json();
-
-            if (res.ok) {
-                responseBody.then(userRecipeData => {
-                    const updatedUserRecipes = [...userRecipes, userRecipeData];
-
-                    dispatch(updateUserRecipes(updatedUserRecipes));
-                    navigate('/my-recipes');
-                });
-            } else {
-                responseBody.then(errorMsg => setErrors(errorMsg));
-            }
+        .then(res => res.json())
+        .then(userRecipeData => {
+            const updatedUserRecipes = userRecipes.map(userRecipeElement => {
+                if (userRecipeElement.id === userRecipeData.id) {
+                    return { ...userRecipeData };
+                } else {
+                    return { ...userRecipeElement };
+                };
+            });
+            dispatch(updateUserRecipes(updatedUserRecipes));
+            navigate(`/recipes/${recipe.id}`);
         })
         .catch(error => console.error(error));
     }
 
-    if (recipe.id === 0) {
+    if (!userId) {
         return (
-            <h1>Please select a recipe from All Recipes</h1>
+            <LoginPrompt />
         );
+    } else if (recipe.id === 0) {
+        navigate(`/recipes/${recipe.id}`);
     }
 
     return (
         <div>
             <h3>{recipe.name}</h3>
             <img src={recipe.image} alt={recipe.name} />
+            <form onSubmit={submitUserRecipe}>
+                <textarea 
+                    value={comments}
+                    onChange={updateComments}
+                />
+                <button>Submit</button>
+            </form>
             <div>
                 <p>{recipe.calories} calories</p>
                 <p>{recipe.proteins}g protein</p>
@@ -80,21 +88,8 @@ function CreateUserRecipe() {
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
-            <form onSubmit={submitUserRecipe}>
-                <textarea 
-                    value={comments}
-                    onChange={updateComments}
-                    placeholder='Add comments here'
-                />
-                <button>Submit</button>
-            </form>
-            <div>
-                {errors.error && (errors.error.map((error, index) => 
-                    <h3 key={index}>{error}</h3>
-                ))}
-            </div>
         </div>
     );
 }
 
-export default CreateUserRecipe;
+export default EditUserRecipe;

@@ -34,7 +34,7 @@ Profile.create(
     height: 70,
     weight: 155.5,
     activity_level: 'moderate',
-    health_goal: 'maintain',
+    health_goal: 'gain',
     vegetarian: false,
     vegan: false,
     gluten_free: false,
@@ -43,54 +43,54 @@ Profile.create(
 
 puts '... done seeding profile'
 
-puts 'Seeding 20 results per chicken, beef, pork, fish, pasta, rice, egg, soup, vegetable, and fruit recipes from Spoonacular...'
+puts 'Seeding 30 results per chicken, beef, pork, fish, pasta, rice, egg, soup, vegetable, and fruit recipes from Spoonacular...'
 
-response_chicken = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=chicken&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_chicken = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=chicken&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_beef = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=beef&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=5&ranking=2', {
+response_beef = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=beef&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_pork = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=pork&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_pork = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=pork&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_fish = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=fish&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_fish = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=fish&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_pasta = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=pasta&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_pasta = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=pasta&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_rice = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=rice&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_rice = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=rice&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_egg = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=egg&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_egg = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=egg&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_soup = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=soup&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_soup = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=soup&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_vegetable = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=vegetable&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_vegetable = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=vegetable&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })
 
-response_fruit = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=fruit&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=20&ranking=2', {
+response_fruit = RestClient.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=fruit&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&sort=popularity&sortDirection=desc&maxCarbs=100&maxProtein=100&maxCalories=1000&maxFat=100&number=30&ranking=2', {
     'X-RapidAPI-Key': ENV['RAPIDAPI_KEY'],
     'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 })

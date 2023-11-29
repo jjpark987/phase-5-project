@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserRecipes } from "../../slices/userRecipesSlice";
 import LoginPrompt from "../LoginPrompt";
+import { updateUserRecipes } from "../../slices/userRecipesSlice";
 
 function CreateUserRecipe() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
     const userId = useSelector(state => state.auth.id);
-    const recipe = useSelector(state => state.recipe);
+    const recipe = location.state;
     const userRecipes = useSelector(state => state.userRecipes.userRecipes);
 
     const [comments, setComments] = useState('');
-    const [errors, setErrors] = useState([]);
 
     function updateComments(e) {
         setComments(e.target.value);
@@ -32,19 +32,12 @@ function CreateUserRecipe() {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(requestBody)
         })
-        .then(res => {
-            const responseBody = res.json();
+        .then(res => res.json())
+        .then(userRecipeData => {
+            const updatedUserRecipes = [...userRecipes, userRecipeData];
 
-            if (res.ok) {
-                responseBody.then(userRecipeData => {
-                    const updatedUserRecipes = [...userRecipes, userRecipeData];
-
-                    dispatch(updateUserRecipes(updatedUserRecipes));
-                    navigate('/my-recipes');
-                });
-            } else {
-                responseBody.then(errorMsg => setErrors(errorMsg));
-            }
+            dispatch(updateUserRecipes(updatedUserRecipes));
+            navigate('/my-recipes');
         })
         .catch(error => console.error(error));
     }
@@ -90,11 +83,6 @@ function CreateUserRecipe() {
                 />
                 <button>Submit</button>
             </form>
-            <div>
-                {errors.error && (errors.error.map((error, index) => 
-                    <h3 key={index}>{error}</h3>
-                ))}
-            </div>
         </div>
     );
 }

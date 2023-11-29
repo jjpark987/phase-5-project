@@ -9,7 +9,7 @@ const userRecipesSlice = createSlice({
         updateUserRecipes: (state, action) => {
             state.userRecipes = action.payload;
         },
-        clearUserRecipes: (state) => {
+        clearUserRecipes: state => {
             state.userRecipes = [];
         }
     }

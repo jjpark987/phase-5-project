@@ -110,7 +110,7 @@ function Auth() {
     if (showLogin) {
         return (
             <div>
-                <button type='button' onClick={handleShowLoginClick}>Sign Up</button>
+                <button type='button' onClick={() => handleShowLoginClick()}>Sign Up</button>
                 <h1>Log In</h1>
                 <form onSubmit={submitAccount}>
                     <label htmlFor='login-username'>Username:</label>
@@ -142,7 +142,7 @@ function Auth() {
     
     return (
         <div>
-            <button type='button' onClick={handleShowLoginClick}>Log In</button>
+            <button type='button' onClick={() => handleShowLoginClick()}>Log In</button>
             <h1>Sign Up</h1>
             <form onSubmit={submitNewAccount}>
                 <label htmlFor='signup-email'>Email:</label>

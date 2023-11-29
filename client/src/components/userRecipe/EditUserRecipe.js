@@ -1,35 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginPrompt from "../LoginPrompt";
 import { updateUserRecipes } from "../../slices/userRecipesSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditUserRecipe() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { id: userRecipeId } = useParams();
     const userId = useSelector(state => state.auth.id);
     const userRecipes = useSelector(state => state.userRecipes.userRecipes);
-    const recipe = useSelector(state => state.recipe);
-    const userRecipe = userRecipes.find(userRecipe => userRecipe.recipe.id === parseInt(recipe.id));
 
-    const [comments, setComments] = useState(userRecipe ? userRecipe.comments : '');
+    const [userRecipe, setUserRecipe] = useState('');
+
+    useEffect(() => {
+        fetch(`/user_recipes/${userRecipeId}`)
+        .then(res => res.json())
+        .then(userRecipeData => setUserRecipe(userRecipeData))
+        .catch(error => console.error(error));
+    }, [userRecipeId]);
 
     function updateComments(e) {
-        setComments(e.target.value);
+        setUserRecipe({ ...userRecipe, comments: e.target.value });
     }
 
     function submitUserRecipe(e) {
         e.preventDefault();
 
-        const requestBody = {
-            ...userRecipe,
-            comments: comments
-        };
-
         fetch(`/user_recipes/${userRecipe.id}`, {
             method: 'PATCH',
             headers : { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
+            body: JSON.stringify(userRecipe)
         })
         .then(res => res.json())
         .then(userRecipeData => {
@@ -41,7 +42,7 @@ function EditUserRecipe() {
                 };
             });
             dispatch(updateUserRecipes(updatedUserRecipes));
-            navigate(`/recipes/${recipe.id}`);
+            navigate(`/my-recipes/${userRecipe.id}`);
         })
         .catch(error => console.error(error));
     }
@@ -50,44 +51,46 @@ function EditUserRecipe() {
         return (
             <LoginPrompt />
         );
-    } else if (recipe.id === 0) {
-        navigate(`/recipes/${recipe.id}`);
     }
 
     return (
         <div>
-            <h3>{recipe.name}</h3>
-            <img src={recipe.image} alt={recipe.name} />
-            <form onSubmit={submitUserRecipe}>
-                <textarea 
-                    value={comments}
-                    onChange={updateComments}
-                />
-                <button>Submit</button>
-            </form>
-            <div>
-                <p>{recipe.calories} calories</p>
-                <p>{recipe.proteins}g protein</p>
-                <p>{recipe.carbs}g carbs</p>
-                <p>{recipe.fats}g fat</p>
-            </div>
-            <div>
-                {recipe.is_vegetarian && <p>Vegetarian</p>}
-                {recipe.is_vegan && <p>Vegan</p>}
-                {recipe.is_gluten_free && <p>Gluten Free</p>}
-                {recipe.is_dairy_free && <p>Dairy Free</p>}
-            </div>
-            <div>
-                <h3>{recipe.servings} Servings</h3>
-                <h3>Ingredients:</h3>
-                {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
-                    <p key={index}>{ingredient}</p>
-                ))}
-                <h3>Instructions:</h3>
-                {recipe.instructions && recipe.instructions.map((step, index) => (
-                    <p key={index}>{index + 1}. {step}</p>
-                ))}
-            </div>
+            {userRecipe.recipe && (
+                <div>
+                    <h3>{userRecipe.recipe.name}</h3>
+                    <img src={userRecipe.recipe.image} alt={userRecipe.recipe.name} />
+                    <form onSubmit={submitUserRecipe}>
+                        <textarea 
+                            value={userRecipe.comments}
+                            onChange={updateComments}
+                        />
+                        <button>Submit</button>
+                    </form>
+                    <div>
+                        <p>{userRecipe.recipe.calories} calories</p>
+                        <p>{userRecipe.recipe.proteins}g protein</p>
+                        <p>{userRecipe.recipe.carbs}g carbs</p>
+                        <p>{userRecipe.recipe.fats}g fat</p>
+                    </div>
+                    <div>
+                        {userRecipe.recipe.is_vegetarian && <p>Vegetarian</p>}
+                        {userRecipe.recipe.is_vegan && <p>Vegan</p>}
+                        {userRecipe.recipe.is_gluten_free && <p>Gluten Free</p>}
+                        {userRecipe.recipe.is_dairy_free && <p>Dairy Free</p>}
+                    </div>
+                    <div>
+                        <h3>{userRecipe.recipe.servings} Servings</h3>
+                        <h3>Ingredients:</h3>
+                        {userRecipe.recipe.ingredients && userRecipe.recipe.ingredients.map((ingredient, index) => (
+                            <p key={index}>{ingredient}</p>
+                        ))}
+                        <h3>Instructions:</h3>
+                        {userRecipe.recipe.instructions && userRecipe.recipe.instructions.map((step, index) => (
+                            <p key={index}>{index + 1}. {step}</p>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

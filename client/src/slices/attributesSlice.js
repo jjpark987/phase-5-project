@@ -8,11 +8,8 @@ const attributesSlice = createSlice({
     },
     reducers: {
         updateAttributes: (state, action) => {
-            return {
-                ...state,
-                cuisines: action.payload.cuisines,
-                types: action.payload.types
-            }
+            state.cuisines = action.payload.cuisines;
+            state.types = action.payload.types;
         }
     }
 });

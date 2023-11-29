@@ -8,8 +8,10 @@ import { updateAttributes } from './slices/attributesSlice';
 import { updateUserRecipes } from './slices/userRecipesSlice';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
+import About from './components/About';
 import Auth from './components/Auth';
 import Profile from './components/profile/Profile';
+import Info from './components/profile/Info';
 import CreateProfile from './components/profile/CreateProfile';
 import EditProfile from './components/profile/EditProfile';
 import AllRecipes from './components/recipe/AllRecipes';
@@ -47,11 +49,17 @@ function App() {
                 <Route path='/' element={
                     <Home />
                 } />
+                <Route path='/about' element={
+                    <About />
+                } />
                 <Route path='/login' element={
                     <Auth />
                 } />
                 <Route path='/profile' element={
                     <Profile />
+                } />
+                <Route path='/profile/info' element={
+                    <Info />
                 } />
                 <Route path='/profile/create' element={
                     <CreateProfile />

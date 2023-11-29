@@ -148,7 +148,6 @@ function CreateProfile() {
                     checked={createProfile.vegetarian}
                     onChange={updateCreateProfile}
                 />
-
                 <label htmlFor='add-vegan'>Vegan:</label>
                 <input 
                     id='add-vegan' 
@@ -157,7 +156,6 @@ function CreateProfile() {
                     checked={createProfile.vegan}
                     onChange={updateCreateProfile}
                 />
-
                 <label htmlFor='add-gluten-free'>Gluten free:</label>
                 <input 
                     id='add-gluten-free' 
@@ -166,7 +164,6 @@ function CreateProfile() {
                     checked={createProfile.glutenFree}
                     onChange={updateCreateProfile}
                 />
-
                 <label htmlFor='add-dairy-free'>Dairy free:</label>
                 <input 
                     id='add-dairy-free' 

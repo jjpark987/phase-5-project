@@ -33,10 +33,9 @@ function ShowUserRecipe() {
         .catch(error => console.error(error));
     }
 
-    // function editUserRecipe() {
-    //     dispatch(updateRecipe(recipe));
-    //     navigate(`/my-recipes/${userRecipe.id}/edit`);
-    // }
+    function editUserRecipe() {
+        navigate(`/my-recipes/${userRecipe.id}/edit`);
+    }
 
     if (!userId) {
         return (
@@ -51,8 +50,8 @@ function ShowUserRecipe() {
                     <h3>{userRecipe.recipe.name}</h3>
                     <img src={userRecipe.recipe.image} alt={userRecipe.recipe.name} />
                     <div>
-                        <p>Comments: {userRecipe.comments}</p>
-                        <button>Edit comments</button>
+                        <p>Comments: {userRecipe.comments ? userRecipe.comments : 'None'}</p>
+                        <button onClick={() => editUserRecipe()}>Edit comments</button>
                     </div>
                     <div>
                         <p>{userRecipe.recipe.calories} calories</p>

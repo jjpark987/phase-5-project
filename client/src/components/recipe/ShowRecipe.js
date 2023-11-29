@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { updateRecipe } from "../../slices/recipeSlice";
+import { useSelector } from "react-redux";
 import LoginPrompt from "../LoginPrompt";
 
 function ShowRecipe() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { id: recipeId } = useParams();
     const userId = useSelector(state => state.auth.id);
     const userRecipes = useSelector(state => state.userRecipes.userRecipes);
@@ -20,11 +18,6 @@ function ShowRecipe() {
         .then(recipeData => setRecipe(recipeData))
         .catch(error => console.error(error));
     }, [recipeId]);
-
-    function createUserRecipe() {
-        dispatch(updateRecipe(recipe));
-        navigate('/my-recipes/create');
-    }
 
     if (!userId) {
         return (
@@ -59,7 +52,7 @@ function ShowRecipe() {
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
-            {!userRecipe && <button onClick={() => createUserRecipe()}>Add to My Recipes</button>}
+            {!userRecipe && <button onClick={() => navigate('/my-recipes/create', { state: recipe })}>Add to My Recipes</button>}
         </div>
     );
 }

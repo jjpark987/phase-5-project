@@ -72,6 +72,7 @@ function AllRecipes() {
     return (
         <div>
             <h1>All Recipes</h1>
+            <i>All recipes shown below take your dietary needs into consideration</i>
             <div>
                 <form>
                     <input

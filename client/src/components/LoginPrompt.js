@@ -2,7 +2,13 @@ import React from "react";
 
 function LoginPrompt() {
     return (
-        <div>Please log in</div>
+        <div>
+            <img 
+                src='/log_in.png'
+                alt='log_in'
+                width='100%'
+            />
+        </div>
     );
 }
 

@@ -2,7 +2,13 @@ import React from "react";
 
 function PageNotFound() {
     return (
-        <div>Page not found</div>
+        <div>
+            <img 
+                src='/page_not_found.jpg'
+                alt='page_not_found'
+                width='100%'
+            />
+        </div>
     );
 }
 

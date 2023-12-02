@@ -26,15 +26,14 @@ function NavBar() {
 
     return (
         <nav>
-            <button onClick={() => navigate('/')}>RECIPE READER</button>
-            <button onClick={() => navigate('/about')}>About</button>
-            <button onClick={() => navigate('/recipes')}>All Recipes</button>
-            <button onClick={() => navigate('/my-recipes')}>My Recipes</button>
-            <button onClick={() => profileId ? navigate('/profile') : navigate('/profile/create')}>My Profile</button>
+            <button onClick={() => navigate('/about')}>ABOUT</button>
+            <button onClick={() => navigate('/recipes')}>ALL RECIPES</button>
+            <button onClick={() => navigate('/my-recipes')}>MY RECIPES</button>
+            <button onClick={() => profileId ? navigate('/profile') : navigate('/profile/create')}>MY PROFILE</button>
             {userId ? 
-                <button onClick={() => logoutUser()}>Logout</button> 
+                <button onClick={() => logoutUser()}>LOGOUT</button> 
             : 
-                <button onClick={() => navigate('/login')}>Login</button>
+                <button onClick={() => navigate('/login')}>LOGIN</button>
             }
         </nav>
     );

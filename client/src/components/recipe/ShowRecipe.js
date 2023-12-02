@@ -26,20 +26,27 @@ function ShowRecipe() {
     }
 
     return (
-        <div>
-            <h3>{recipe.name}</h3>
-            <img src={recipe.image} alt={recipe.name} />
-            <div>
-                <p>{recipe.calories} calories</p>
-                <p>{recipe.proteins}g protein</p>
-                <p>{recipe.carbs}g carbs</p>
-                <p>{recipe.fats}g fat</p>
-            </div>
-            <div>
-                {recipe.is_vegetarian && <p>Vegetarian</p>}
-                {recipe.is_vegan && <p>Vegan</p>}
-                {recipe.is_gluten_free && <p>Gluten Free</p>}
-                {recipe.is_dairy_free && <p>Dairy Free</p>}
+        <div id='show-recipe'>
+            <h1><i>{recipe.name}</i></h1>
+            <div id='show-recipe-header'>
+                <div>
+                    <img 
+                        src={recipe.image} 
+                        alt={recipe.name} 
+                        width='300px'
+                    />
+                    {!userRecipe && <button onClick={() => navigate('/my-recipes/create', { state: recipe })}>Add to My Recipes</button>}
+                </div>
+                <div>
+                    <p><b>{recipe.calories} calories</b></p>
+                    <p>{recipe.proteins} g protein</p>
+                    <p>{recipe.carbs} g carbs</p>
+                    <p>{recipe.fats} g fat</p>
+                    {recipe.is_vegetarian && <p><b>Vegetarian</b></p>}
+                    {recipe.is_vegan && <p><b>Vegan</b></p>}
+                    {recipe.is_gluten_free && <p><b>Gluten Free</b></p>}
+                    {recipe.is_dairy_free && <p><b>Dairy Free</b></p>}
+                </div>
             </div>
             <div>
                 <h3>{recipe.servings} Servings</h3>
@@ -47,12 +54,13 @@ function ShowRecipe() {
                 {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
                     <p key={index}>{ingredient}</p>
                 ))}
+            </div>
+            <div>
                 <h3>Instructions:</h3>
                 {recipe.instructions && recipe.instructions.map((step, index) => (
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
-            {!userRecipe && <button onClick={() => navigate('/my-recipes/create', { state: recipe })}>Add to My Recipes</button>}
         </div>
     );
 }

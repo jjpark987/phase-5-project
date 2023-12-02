@@ -158,8 +158,8 @@ function CreateRecipe() {
     }
 
     return (
-        <div>
-            <h1>Create Recipe</h1>
+        <div id='create-recipe'>
+            <h1><i>Create Recipe</i></h1>
             <form onSubmit={submitCreateRecipe}>
                 <label htmlFor='add-name'>Name:</label>
                 <input 

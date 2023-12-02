@@ -70,10 +70,10 @@ function AllRecipes() {
     }
 
     return (
-        <div>
-            <h1>All Recipes</h1>
-            <i>All recipes shown below take your dietary needs into consideration</i>
-            <div>
+        <div id='all-recipes'>
+            <div id='all-recipes-header'>
+                <h1>All Recipes</h1>
+                <i>All recipes shown below take your dietary needs into consideration</i><br />
                 <form>
                     <input
                         placeholder='Search Recipes'
@@ -110,11 +110,9 @@ function AllRecipes() {
                         <option value='alphabet'>Alphabet</option>
                     </select>
                 </form>
-            </div>
-            <div>
                 <button onClick={() => navigate('/recipes/create')}>Create recipe</button>
             </div>
-            <div>
+            <div id='all-recipes-container'>
                 {recipes
                 .filter(recipe => filterDietaryRestrictions(recipe))
                 .filter(recipe => searchRecipes(recipe))

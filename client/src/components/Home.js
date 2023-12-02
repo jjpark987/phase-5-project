@@ -1,15 +1,18 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
+    const navigate = useNavigate();
+
     return (
-        <div>
-            <h1>RECIPE READER</h1>
+        <div id='home' className='component'>
+            <Link to='/about'>RANDOM<br />RECIPES</Link>
             <img 
-                src='/book.png'
-                alt='book'
-                width='30%'
+                src='/recipebook.jpg'
+                alt='recipebook'
+                width='75%'
+                onClick={() => navigate('/about')}
             />
-            <i>You are what you eat!</i>
         </div>
     );
 }

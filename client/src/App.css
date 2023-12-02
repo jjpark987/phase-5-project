@@ -1,25 +1,146 @@
 /* Shared */
+.component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vh;
+}
+
 button {
-    font-family: Impact, fantasy, -apple-system;
+    font-family:  New Century Schoolbook, TeX Gyre Schola, serif;
 }
 
 /* NavBar */
 nav {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     height: 5vh;
     background-color: rgb(0, 0, 0);
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     justify-items: center;
     align-items: center;
 }
 
-nav a,
 nav button {
     background: none;
     border: none;
-    padding: 0;
     font-size: large;
-    text-decoration: none;
     color: rgb(255, 255, 255);
     cursor: pointer;
+}
+
+#title {
+    color: rgb(102, 146, 114);
+}
+
+/* Home */
+#home {
+    margin-top: 5vh;
+}
+
+#home a {
+    font-size: 500%;
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(103, 180, 126);
+    cursor: pointer;
+    margin: 3vh;
+    text-shadow: 3px 3px 0 black;
+}
+
+#home img {
+    cursor: pointer;
+}
+
+/* About */
+#about {
+    margin-top: 5vh;
+}
+
+#about a {
+    font-size: 500%;
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(103, 180, 126);
+    cursor: pointer;
+    margin: 3vh;
+    text-shadow: 3px 3px 0 black;
+}
+
+#about img {
+    cursor: pointer;
+}
+
+#about-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: larger;
+    border-color: black;
+}
+
+/* AllRecipes */
+#all-recipes {
+    display: grid;
+    grid-template-rows: 200px auto;
+    justify-items: center;
+}
+
+#all-recipes-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#all-recipes-container {
+    width: 60vw;
+    margin-left: 10vw;
+}
+
+#all-recipes button {
+    margin: 3vh 0;
+    font-size: larger;
+}
+
+/* Recipe */
+
+#recipe {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#recipe a {
+    width: 30vw;
+}
+
+#recipe-macros {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+/* ShowRecipe */
+#show-recipe {
+    margin: 0 3vw;
+}
+
+#show-recipe-header {
+    display: grid;
+    grid-template-columns: 25vw 1fr;
+}
+
+#show-recipe button {
+    margin-top: 2vh;
+}
+
+/* CreateRecipe */
+#create-recipe {
+    margin: 0 3vw;
+}
+
+/* Profile */
+#profile {
+    margin: 0 3vw;
 }

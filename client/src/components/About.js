@@ -1,18 +1,24 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function About() {
+    const navigate = useNavigate();
+
     return(
-        <div>
-            <h1>About</h1>
+        <div id='about' className='component'>
+            <Link to='/'>RANDOM<br />RECIPES</Link>
             <img 
-                src='/vintage.jpg'
-                alt='vintage'
+                src='/book.png'
+                alt='book'
                 width='25%'
+                onClick={() => navigate('/')}
             />
-            <p>Create your profile to find your recommended daily caloric intake</p>
-            <p>Go to All Recipes to view or add new recipes</p>
-            <p>Save recipes to My Recipes with personal comments</p>
-            <p>Mark your favorite recipes!</p>
+            <div id='about-details'>
+                <p>Create your profile to find your recommended daily caloric intake</p>
+                <p>Go to All Recipes to view or add new recipes</p>
+                <p>Save recipes to My Recipes with personal comments</p>
+                <p>Star your favorite recipes</p>
+            </div>
         </div>
     );
 }

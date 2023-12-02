@@ -1,17 +1,17 @@
 html {
-    background-color: rgb(139, 198, 156);
+    background-color: rgb(103, 180, 126);
   }
   
   body {
     background-color: rgb(255, 255, 255);
-    font-family:  Impact, fantasy, -apple-system;
+    font-family:  New Century Schoolbook, TeX Gyre Schola, serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 0 auto;
-    min-height: 100vh;
-    width: 80%;
-    border-left: 5px solid black;
-    border-right: 5px solid black;
+    margin: 1vh auto;
+    min-height: 96vh;
+    width: 75%;
+    border: 5px solid black;
+    border-radius: 25px;
     overflow-y: scroll;
   }
   

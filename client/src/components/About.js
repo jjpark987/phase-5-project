@@ -10,7 +10,7 @@ function About() {
             <img 
                 src='/book.png'
                 alt='book'
-                width='25%'
+                width='20%'
                 onClick={() => navigate('/')}
             />
             <div id='about-details'>

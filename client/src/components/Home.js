@@ -10,7 +10,7 @@ function Home() {
             <img 
                 src='/recipebook.jpg'
                 alt='recipebook'
-                width='75%'
+                width='55%'
                 onClick={() => navigate('/about')}
             />
         </div>

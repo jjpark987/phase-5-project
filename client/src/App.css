@@ -44,7 +44,7 @@ nav button {
 /* Auth */
 .auth {
     display: grid;
-    grid-template-rows: auto 15vh 15vh auto 1fr;
+    grid-template-rows: auto 150px 150px auto 1fr;
     place-items: center;
 }
 
@@ -53,7 +53,7 @@ nav button {
     flex-direction: column;
     align-items: stretch;
     row-gap: 1vh;
-    width: 25vw;
+    width: 335px;
 }
 
 .label-input {
@@ -63,6 +63,7 @@ nav button {
 
 .auth-btn {
     display: flex;
+    justify-content: end;
 }
 
 /* Home */
@@ -76,7 +77,6 @@ nav button {
     font-weight: bold;
     color: rgb(103, 180, 126);
     cursor: pointer;
-    margin: 3vh;
     text-shadow: 3px 3px 0 black;
 }
 
@@ -95,7 +95,6 @@ nav button {
     font-weight: bold;
     color: rgb(103, 180, 126);
     cursor: pointer;
-    margin: 3vh;
     text-shadow: 3px 3px 0 black;
 }
 
@@ -108,7 +107,10 @@ nav button {
     flex-direction: column;
     align-items: center;
     font-size: larger;
-    border-color: black;
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background-color:  rgb(90, 180, 120, 0.5)
 }
 
 /* Profile */
@@ -122,6 +124,10 @@ nav button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background-color:  rgb(90, 180, 120, 0.5)
 }
 
 .profile-link {
@@ -160,8 +166,7 @@ nav button {
 }
 
 #all-recipes-container {
-    width: 60vw;
-    margin-left: 10vw;
+    width: 50vw;
 }
 
 #all-recipes button {
@@ -293,8 +298,7 @@ nav button {
 }
 
 #all-user-recipes-container {
-    width: 60vw;
-    margin-left: 10vw;
+    width: 50vw;
 }
 
 #no-user-recipes {
@@ -364,6 +368,11 @@ nav button {
 }
 
 /* LoginPrompt */
+#login-prompt {
+    display: flex;
+    justify-content: center;
+}
+
 #log-in-prompt-img {
-    margin-top: 22vh;
+    margin-top: 19vh;
 }

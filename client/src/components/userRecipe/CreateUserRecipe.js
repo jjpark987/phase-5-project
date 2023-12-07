@@ -49,22 +49,37 @@ function CreateUserRecipe() {
     }
 
     return (
-        <div>
-            <h3>{recipe.name}</h3>
-            <img src={recipe.image} alt={recipe.name} />
-            <div>
-                <p>{recipe.calories} calories</p>
-                <p>{recipe.proteins}g protein</p>
-                <p>{recipe.carbs}g carbs</p>
-                <p>{recipe.fats}g fat</p>
+        <div className='show-recipe'>
+            <h1><i>{recipe.name}</i></h1>
+            <div className='show-recipe-header'>
+                <img 
+                    src={recipe.image} 
+                    alt={recipe.name}
+                    width='300px'    
+                />
+                <div>
+                    <p><b>{recipe.calories} calories</b></p>
+                    <p>{recipe.proteins} g protein</p>
+                    <p>{recipe.carbs} g carbs</p>
+                    <p>{recipe.fats} g fat</p>
+                </div>
+                <div>
+                    {recipe.is_vegetarian && <p><b>Vegetarian</b></p>}
+                    {recipe.is_vegan && <p><b>Vegan</b></p>}
+                    {recipe.is_gluten_free && <p><b>Gluten free</b></p>}
+                    {recipe.is_dairy_free && <p><b>Dairy free</b></p>}
+                </div>
             </div>
             <div>
-                {recipe.is_vegetarian && <p>Vegetarian</p>}
-                {recipe.is_vegan && <p>Vegan</p>}
-                {recipe.is_gluten_free && <p>Gluten Free</p>}
-                {recipe.is_dairy_free && <p>Dairy Free</p>}
-            </div>
-            <div>
+                <form className='comments' onSubmit={submitUserRecipe}>
+                    <p><i><b>Comments:</b></i></p>
+                    <textarea 
+                        value={comments}
+                        onChange={updateComments}
+                        placeholder='ADD COMMENTS'
+                    />
+                    <button className='comments-btn'>SUBMIT</button>
+                </form>
                 <h3>{recipe.servings} Servings</h3>
                 <h3>Ingredients:</h3>
                 {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
@@ -75,14 +90,6 @@ function CreateUserRecipe() {
                     <p key={index}>{index + 1}. {step}</p>
                 ))}
             </div>
-            <form onSubmit={submitUserRecipe}>
-                <textarea 
-                    value={comments}
-                    onChange={updateComments}
-                    placeholder='Add comments here'
-                />
-                <button>Submit</button>
-            </form>
         </div>
     );
 }

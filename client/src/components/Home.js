@@ -5,7 +5,7 @@ function Home() {
     const navigate = useNavigate();
 
     return (
-        <div id='home' className='component'>
+        <div id='home' className='flex-column-center'>
             <Link to='/about'>RANDOM<br />RECIPES</Link>
             <img 
                 src='/recipebook.jpg'

@@ -5,7 +5,7 @@ function About() {
     const navigate = useNavigate();
 
     return(
-        <div id='about' className='component'>
+        <div id='about' className='flex-column-center'>
             <Link to='/'>RANDOM<br />RECIPES</Link>
             <img 
                 src='/book.png'

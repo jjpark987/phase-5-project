@@ -35,7 +35,6 @@ function AllRecipes() {
         }
         return true;
     }
-    
 
     function searchRecipes(recipe) {
         return recipe.name.toLowerCase().includes(search.toLowerCase());
@@ -72,7 +71,7 @@ function AllRecipes() {
     return (
         <div id='all-recipes'>
             <div id='all-recipes-header'>
-                <h1>All Recipes</h1>
+                <h1><i><u>All Recipes</u></i></h1>
                 <i>All recipes shown below take your dietary needs into consideration</i><br />
                 <form>
                     <input
@@ -110,7 +109,7 @@ function AllRecipes() {
                         <option value='alphabet'>Alphabet</option>
                     </select>
                 </form>
-                <button onClick={() => navigate('/recipes/create')}>Create recipe</button>
+                <button onClick={() => navigate('/recipes/create')}>CREATE RECIPE</button>
             </div>
             <div id='all-recipes-container'>
                 {recipes

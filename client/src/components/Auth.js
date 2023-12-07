@@ -51,7 +51,7 @@ function Auth() {
                     userData.profile && dispatch(updateProfile(userData.profile));
                     userData.user_recipes && dispatch(updateUserRecipes(userData.user_recipes));
                     setErrors([]);
-                    navigate('/');
+                    navigate('/my-recipes');
                 });
             } else {
                 responseBody.then(errorMsg => setErrors(errorMsg));
@@ -109,81 +109,107 @@ function Auth() {
     
     if (showLogin) {
         return (
-            <div>
-                <button type='button' onClick={() => handleShowLoginClick()}>Sign Up</button>
-                <h1>Log In</h1>
-                <form onSubmit={submitAccount}>
-                    <label htmlFor='login-username'>Username:</label>
-                    <input 
-                        id='login-username' 
-                        name='username'
-                        value={account.username} 
-                        onChange={updateAccount}
-                        required
-                    />
-                    <label htmlFor='login-password'>Password:</label>
-                    <input 
-                        id='login-password' 
-                        name='password'
-                        value={account.password} 
-                        onChange={updateAccount}
-                        required
-                    />
-                    <button>Log In</button>
+            <div className='auth'>
+                <h1><i><u>Log In</u></i></h1>
+                <form className='auth-form' onSubmit={submitAccount}>
+                    <div className='label-input'>
+                        <label htmlFor='login-username'>Username: </label>
+                        <input 
+                            id='login-username' 
+                            name='username'
+                            value={account.username} 
+                            onChange={updateAccount}
+                            required
+                        />
+                    </div>
+                    <div className='label-input'>
+                        <label htmlFor='login-password'>Password: </label>
+                        <input 
+                            id='login-password' 
+                            name='password'
+                            value={account.password} 
+                            onChange={updateAccount}
+                            required
+                        />
+                    </div>
+                    <div className='auth-btn'>
+                        <button>LOG IN</button>
+                    </div>
                 </form>
                 <div>
                     {errors.error && (errors.error.map((error, index) => 
-                        <h3 key={index}>{error}</h3>
-                    ))}
+                        <p key={index}>{error}</p>
+                        ))}
                 </div>
+                <button type='button' onClick={() => handleShowLoginClick()}>CREATE ACCOUNT</button>
+                <img 
+                    src='/recipebook.jpg'
+                    alt='recipebook'
+                    width='60%'
+                />
             </div>
         );
     }
     
     return (
-        <div>
-            <button type='button' onClick={() => handleShowLoginClick()}>Log In</button>
-            <h1>Sign Up</h1>
-            <form onSubmit={submitNewAccount}>
-                <label htmlFor='signup-email'>Email:</label>
-                <input 
-                    id='signup-email' 
-                    name='email'
-                    value={newAccount.email} 
-                    onChange={updateNewAccount}
-                    required
-                />
-                <label htmlFor='signup-username'>Username:</label>
-                <input 
-                    id='signup-username' 
-                    name='username'
-                    value={newAccount.username} 
-                    onChange={updateNewAccount}
-                    required
-                />
-                <label htmlFor='signup-password'>Password:</label>
-                <input 
-                    id='signup-password' 
-                    name='password'
-                    value={newAccount.password} 
-                    onChange={updateNewAccount}
-                    required
-                />
-                <label htmlFor='signup-password-confirmation'>Password Confirmation:</label>
-                <input 
-                    id='signup-password-confirmation' 
-                    name='passwordConfirmation'
-                    value={newAccount.passwordConfirmation} 
-                    onChange={updateNewAccount}
-                    required
-                />
-                <button>Sign Up</button>
+        <div className='auth'>
+            <h1><i><u>Sign Up</u></i></h1>
+            <form className='auth-form' onSubmit={submitNewAccount}>
+                <div className='label-input'>
+                    <label htmlFor='signup-email'>Email:</label>
+                    <input 
+                        id='signup-email' 
+                        name='email'
+                        value={newAccount.email} 
+                        onChange={updateNewAccount}
+                        required
+                    />
+                </div>
+                <div className='label-input'>
+                    <label htmlFor='signup-username'>Username:</label>
+                    <input 
+                        id='signup-username' 
+                        name='username'
+                        value={newAccount.username} 
+                        onChange={updateNewAccount}
+                        required
+                    />
+                </div>
+                <div className='label-input'>
+                    <label htmlFor='signup-password'>Password:</label>
+                    <input 
+                        id='signup-password' 
+                        name='password'
+                        value={newAccount.password} 
+                        onChange={updateNewAccount}
+                        required
+                    />
+                </div>
+                <div className='label-input'>
+                    <label htmlFor='signup-password-confirmation'>Password Confirmation:</label>
+                    <input 
+                        id='signup-password-confirmation' 
+                        name='passwordConfirmation'
+                        value={newAccount.passwordConfirmation} 
+                        onChange={updateNewAccount}
+                        required
+                    />
+                </div>
+                <div className='auth-btn'>
+                    <button>SIGN UP</button>
+                </div>
             </form>
             <div>
                 {errors.error && (errors.error.map((error, index) => 
-                    <h3 key={index}>{error}</h3>
+                    <p key={index}>{error}</p>
                 ))}
             </div>
+            <button id='log-in-instead-btn' type='button' onClick={() => handleShowLoginClick()}>LOG IN INSTEAD</button>
+            <img 
+                src='/recipebook.jpg'
+                alt='recipebook'
+                width='60%'
+            />
         </div>
     );
 }

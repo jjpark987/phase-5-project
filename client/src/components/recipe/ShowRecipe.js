@@ -26,27 +26,29 @@ function ShowRecipe() {
     }
 
     return (
-        <div id='show-recipe'>
+        <div className='show-recipe'>
             <h1><i>{recipe.name}</i></h1>
-            <div id='show-recipe-header'>
-                <div>
-                    <img 
-                        src={recipe.image} 
-                        alt={recipe.name} 
-                        width='300px'
-                    />
-                    {!userRecipe && <button onClick={() => navigate('/my-recipes/create', { state: recipe })}>Add to My Recipes</button>}
-                </div>
+            <div className='show-recipe-header'>
+                <img 
+                    src={recipe.image} 
+                    alt={recipe.name} 
+                    width='300px'
+                />
                 <div>
                     <p><b>{recipe.calories} calories</b></p>
                     <p>{recipe.proteins} g protein</p>
                     <p>{recipe.carbs} g carbs</p>
                     <p>{recipe.fats} g fat</p>
+                </div>
+                <div>
                     {recipe.is_vegetarian && <p><b>Vegetarian</b></p>}
                     {recipe.is_vegan && <p><b>Vegan</b></p>}
-                    {recipe.is_gluten_free && <p><b>Gluten Free</b></p>}
-                    {recipe.is_dairy_free && <p><b>Dairy Free</b></p>}
+                    {recipe.is_gluten_free && <p><b>Gluten free</b></p>}
+                    {recipe.is_dairy_free && <p><b>Dairy free</b></p>}
                 </div>
+            </div>
+            <div id='create-user-recipe-btn'>
+                {!userRecipe && <button onClick={() => navigate('/my-recipes/create', { state: recipe })}>ADD TO MY RECIPES</button>}
             </div>
             <div>
                 <h3>{recipe.servings} Servings</h3>

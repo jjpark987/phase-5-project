@@ -31,9 +31,9 @@ function NavBar() {
             <button onClick={() => navigate('/my-recipes')}>MY RECIPES</button>
             <button onClick={() => profileId ? navigate('/profile') : navigate('/profile/create')}>MY PROFILE</button>
             {userId ? 
-                <button onClick={() => logoutUser()}>LOGOUT</button> 
+                <button onClick={() => logoutUser()}>LOG OUT</button> 
             : 
-                <button onClick={() => navigate('/login')}>LOGIN</button>
+                <button onClick={() => navigate('/login')}>LOG IN</button>
             }
         </nav>
     );

@@ -42,30 +42,36 @@ function ShowUserRecipe() {
             <LoginPrompt />
         );
     }
-    
+
     return (
         <div>
             {userRecipe.recipe && (
-                <div>
-                    <h3>{userRecipe.recipe.name}</h3>
-                    <img src={userRecipe.recipe.image} alt={userRecipe.recipe.name} />
-                    <div>
-                        <p>Comments: {userRecipe.comments ? userRecipe.comments : 'None'}</p>
-                        <button onClick={() => editUserRecipe()}>Edit comments</button>
+                <div className='show-recipe'>
+                    <h1><i>{userRecipe.recipe.name}</i></h1>
+                    <div className='show-recipe-header'>
+                        <img 
+                            src={userRecipe.recipe.image} alt={userRecipe.recipe.name} 
+                            width='300px'    
+                        />
+                        <div>
+                            <p><b>{userRecipe.recipe.calories} calories</b></p>
+                            <p>{userRecipe.recipe.proteins}g protein</p>
+                            <p>{userRecipe.recipe.carbs}g carbs</p>
+                            <p>{userRecipe.recipe.fats}g fat</p>
+                        </div>
+                        <div>
+                            {userRecipe.recipe.is_vegetarian && <p><b>Vegetarian</b></p>}
+                            {userRecipe.recipe.is_vegan && <p><b>Vegan</b></p>}
+                            {userRecipe.recipe.is_gluten_free && <p><b>Gluten free</b></p>}
+                            {userRecipe.recipe.is_dairy_free && <p><b>Dairy free</b></p>}
+                        </div>
                     </div>
                     <div>
-                        <p>{userRecipe.recipe.calories} calories</p>
-                        <p>{userRecipe.recipe.proteins}g protein</p>
-                        <p>{userRecipe.recipe.carbs}g carbs</p>
-                        <p>{userRecipe.recipe.fats}g fat</p>
-                    </div>
-                    <div>
-                        {userRecipe.recipe.is_vegetarian && <p>Vegetarian</p>}
-                        {userRecipe.recipe.is_vegan && <p>Vegan</p>}
-                        {userRecipe.recipe.is_gluten_free && <p>Gluten Free</p>}
-                        {userRecipe.recipe.is_dairy_free && <p>Dairy Free</p>}
-                    </div>
-                    <div>
+                        <div className='comments'>
+                            <p><i><b>Comments:</b></i></p>
+                            {userRecipe.comments ? <p id='comments-body'><i>{userRecipe.comments}</i></p> : <p id='comments-none'>🍽️</p>}
+                            <button className='comments-btn' onClick={() => editUserRecipe()}>EDIT COMMENTS</button>
+                        </div>
                         <h3>{userRecipe.recipe.servings} Servings</h3>
                         <h3>Ingredients:</h3>
                         {userRecipe.recipe.ingredients && userRecipe.recipe.ingredients.map((ingredient, index) => (
@@ -76,7 +82,7 @@ function ShowUserRecipe() {
                             <p key={index}>{index + 1}. {step}</p>
                         ))}
                     </div>
-                    <button onClick={() => deleteUserRecipe()}>Remove from My Recipes</button>
+                    <button id='show-user-recipe-remove-btn' onClick={() => deleteUserRecipe()}>REMOVE FROM MY RECIPES</button>
                 </div>
             )}
         </div>

@@ -14,35 +14,40 @@ function Profile() {
     }
 
     return (
-        <div id='profile'>
-            <h1>My Profile</h1>
-            <img 
-                src='/profile_icon.png'
-                alt='person'
-                width='5%'
-            />
-            <h3>{profile.sex === 'male' ? 'Male' : 'Female'}</h3>
-            <h3>{profile.age} years old</h3>
-            <h3>{profile.heightFeet} ft {profile.heightInches} in</h3>
-            <h3>{profile.weight} lbs</h3>
-            <h3>Activity Level: {profile.activityLevel.charAt(0).toUpperCase() + profile.activityLevel.slice(1)}</h3>
-            <h3>Health Goal: To {profile.healthGoal} weight</h3>
-            <h3>Dietairy Restrictions: 
-                {(!profile.vegetarian && !profile.vegan && !profile.glutenFree && !profile.dairyFree) && ' None'} 
-                {[
-                    profile.vegetarian && ' Vegetarian',
-                    profile.vegan && ' Vegan',
-                    profile.glutenFree && ' Gluten free',
-                    profile.dairyFree && ' Dairy free'
-                ]
-                .filter(Boolean).join(',')}
-            </h3>
-            <Link to='/profile/edit'>Edit Profile</Link>
-            <h1>Recommended Daily Caloric Intake: </h1>
-            <h1>{profile.recommendedCalories} calories/day</h1>
-            <h3>BMR: {profile.bmr} calories/day</h3>
-            <h3>TDEE: {profile.tdee} calories/day</h3>
-            <Link to='/profile/info'>More Info</Link>
+        <div className='flex-column-center'>
+            <h1><i><u>My Profile</u></i></h1>
+            <div id='profile-info'>
+                <p>{profile.sex === 'male' ? 'Male' : 'Female'}</p>
+                <p>{profile.age} years old</p>
+                <p>{profile.heightFeet} ft {profile.heightInches} in</p>
+                <p>{profile.weight} lbs</p>
+                <p>Activity level is <b>{profile.activityLevel}</b>.</p>
+                <p>Health goal is to <b>{profile.healthGoal}</b> weight.</p>
+                <p>
+                    {   
+                        (!profile.vegetarian && !profile.vegan && !profile.glutenFree && !profile.dairyFree) ? 
+                        'You do not have any dietary restrictions' : 
+                        'Dietary restriction(s) is/are'
+                    } 
+                    <b>
+                        {[
+                            profile.vegetarian && ' vegetarian',
+                            profile.vegan && ' vegan',
+                            profile.glutenFree && ' gluten free',
+                            profile.dairyFree && ' dairy free'
+                        ]
+                        .filter(Boolean).join(',')}
+                    </b>.
+                </p>
+                <Link className='profile-link' to='/profile/edit'>Edit Profile</Link>
+            </div>
+            <div id='profile-calculations'>
+                <h3>Calculated Daily Caloric Intakes:</h3>
+                <p>BMR: {profile.bmr}</p>
+                <p>TDEE: {profile.tdee}</p>
+                <p><b>Recommended: {profile.recommendedCalories}</b></p>
+                <Link className='profile-link' to='/profile/info'>More Info</Link>
+            </div>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Info() {
     return(
-        <div>
+        <div id='info' className='flex-column-center'>
             <h3>BMR</h3>
             <p>
                 Basal metabolic rate (BMR) represents the number of calories your body needs in a day to maintain basic physiological functions while at rest. This is calcuated using the Mifflin-St Jeor equation.
@@ -28,7 +28,7 @@ function Info() {
                 <li>To maintain weight: TDEE</li>
                 <li>To gain weight: TDEE + 400</li>
             </ul>
-            <Link to='/profile'>Back to Profile</Link>
+            <Link className='profile-link' to='/profile'>Back to Profile</Link>
         </div>
     );
 }

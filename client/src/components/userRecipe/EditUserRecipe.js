@@ -56,29 +56,36 @@ function EditUserRecipe() {
     return (
         <div>
             {userRecipe.recipe && (
-                <div>
-                    <h3>{userRecipe.recipe.name}</h3>
-                    <img src={userRecipe.recipe.image} alt={userRecipe.recipe.name} />
-                    <form onSubmit={submitUserRecipe}>
-                        <textarea 
-                            value={userRecipe.comments}
-                            onChange={updateComments}
+                <div className='show-recipe'>
+                    <h1><i>{userRecipe.recipe.name}</i></h1>
+                    <div className='show-recipe-header'>
+                        <img 
+                            src={userRecipe.recipe.image} 
+                            alt={userRecipe.recipe.name} 
+                            width='300px'
                         />
-                        <button>Submit</button>
-                    </form>
-                    <div>
-                        <p>{userRecipe.recipe.calories} calories</p>
-                        <p>{userRecipe.recipe.proteins}g protein</p>
-                        <p>{userRecipe.recipe.carbs}g carbs</p>
-                        <p>{userRecipe.recipe.fats}g fat</p>
+                        <div>
+                            <p><b>{userRecipe.recipe.calories} calories</b></p>
+                            <p>{userRecipe.recipe.proteins} g protein</p>
+                            <p>{userRecipe.recipe.carbs} g carbs</p>
+                            <p>{userRecipe.recipe.fats} g fat</p>
+                        </div>
+                        <div>
+                            {userRecipe.recipe.is_vegetarian && <p><b>Vegetarian</b></p>}
+                            {userRecipe.recipe.is_vegan && <p><b>Vegan</b></p>}
+                            {userRecipe.recipe.is_gluten_free && <p><b>Gluten free</b></p>}
+                            {userRecipe.recipe.is_dairy_free && <p><b>Dairy free</b></p>}
+                        </div>
                     </div>
                     <div>
-                        {userRecipe.recipe.is_vegetarian && <p>Vegetarian</p>}
-                        {userRecipe.recipe.is_vegan && <p>Vegan</p>}
-                        {userRecipe.recipe.is_gluten_free && <p>Gluten Free</p>}
-                        {userRecipe.recipe.is_dairy_free && <p>Dairy Free</p>}
-                    </div>
-                    <div>
+                        <form className='comments' onSubmit={submitUserRecipe}>
+                            <p><i><b>Comments:</b></i></p>
+                            <textarea
+                                value={userRecipe.comments}
+                                onChange={updateComments}
+                            />
+                            <button className='comments-btn'>SUBMIT</button>
+                        </form>
                         <h3>{userRecipe.recipe.servings} Servings</h3>
                         <h3>Ingredients:</h3>
                         {userRecipe.recipe.ingredients && userRecipe.recipe.ingredients.map((ingredient, index) => (

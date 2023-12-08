@@ -322,6 +322,7 @@ nav button {
     align-self: start;
     margin: 150px 50px 0 0;
     font-size: xx-large;
+    cursor: pointer;
 }
 
 #user-recipe-title {

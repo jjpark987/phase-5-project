@@ -51,7 +51,7 @@ function Auth() {
                     userData.profile && dispatch(updateProfile(userData.profile));
                     userData.user_recipes && dispatch(updateUserRecipes(userData.user_recipes));
                     setErrors([]);
-                    navigate('/my-recipes');
+                    navigate('/profile/create');
                 });
             } else {
                 responseBody.then(errorMsg => setErrors(errorMsg));
@@ -127,6 +127,7 @@ function Auth() {
                         <input 
                             id='login-password' 
                             name='password'
+                            type='password'
                             value={account.password} 
                             onChange={updateAccount}
                             required
@@ -180,6 +181,7 @@ function Auth() {
                     <input 
                         id='signup-password' 
                         name='password'
+                        type='password'
                         value={newAccount.password} 
                         onChange={updateNewAccount}
                         required
@@ -190,6 +192,7 @@ function Auth() {
                     <input 
                         id='signup-password-confirmation' 
                         name='passwordConfirmation'
+                        type='password'
                         value={newAccount.passwordConfirmation} 
                         onChange={updateNewAccount}
                         required

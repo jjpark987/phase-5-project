@@ -68,6 +68,10 @@ function AllRecipes() {
         }
     }
 
+    function clearFilters() {
+        setAttribute({ cuisine: '', type: '' });
+    }
+
     return (
         <div id='all-recipes'>
             <div id='all-recipes-header'>
@@ -108,6 +112,7 @@ function AllRecipes() {
                         <option value='fats'>Fats</option>
                         <option value='alphabet'>Alphabet</option>
                     </select>
+                    <button id='all-recipes-clear-filters' onClick={() => clearFilters()}>CLEAR FILTERS</button>
                 </form>
                 <button onClick={() => navigate('/recipes/create')}>CREATE RECIPE</button>
             </div>

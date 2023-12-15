@@ -63,7 +63,7 @@ nav button {
 
 .auth-btn {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 /* Home */
@@ -172,6 +172,11 @@ nav button {
 #all-recipes button {
     margin: 3vh 0;
     font-size: larger;
+}
+
+#all-recipes-header form button {
+    margin: 0;
+    font-size: small;
 }
 
 /* Recipe */

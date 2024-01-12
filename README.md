@@ -18,6 +18,10 @@ UserRecipe is a jointable for the many-to-many association between User and Reci
 
 This application uses Spoonacular Recipe-Food-Nutrition API by David. Please see this [link](https://rapidapi.com/spoonacular/api/recipe-food-nutrition) for the official documentation.
 
+## Demo
+
+[Video Walkthrough](https://youtu.be/uyz3J8TJOTM)
+
 ## Support
 
 Please contact me at jjpark987@gmail.com for any questions.

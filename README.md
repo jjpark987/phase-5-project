@@ -1,8 +1,10 @@
-# Phase 5 Project: Random Recipes
+# Random Recipes
+
+Discover new recipes, save the favorites, and create a profile to get the best results for your taste and preferences.
 
 ## Introduction
 
-Welcome to Random Recipes, a dynamic web application built with React on the frontend and Rails Active Record on the backend for robust data collection and management. The frontend experience utilizes Redux for streamlined state management, ensuring real-time synchronization with the PostgreSQL database. This single-page application adheres to RESTful routing conventions, providing an intuitive and efficient user experience.
+Random Recipes is a dynamic web application built with a React frontend and Ruby on Rails backend for robust data collection and management. For frontend state management, I incorporated Redux using `@reduxjs/toolkit`. This single-page application adheres to RESTful routing conventions.
 
 ## Models
 
